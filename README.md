@@ -8,7 +8,7 @@ Product specs conflict across retailers, manufacturers, and government sites. So
 
 The Core Challenge
 
-To score a claim's reliability you need to know the source's reliability — but to know the source's reliability you need to know how accurate its claims are. It's circular.
+To score a claim's reliability you need to know the source's reliability. But to know the source's reliability, you need to know how accurate its claims are. It's circular.
 
 The Approach
 
