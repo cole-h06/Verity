@@ -1,0 +1,17 @@
+{
+  "profile": "https://peelr.ai/.well-known/ucp/profile.json",
+  "name": "Peelr",
+  "type": "AGENT",
+  "version": "1.0",
+  "description": "AI shopping agent that ranks products by how consistently their specifications are confirmed across independent sources",
+  "capabilities": {
+    "discovery": { "supported": true },
+    "checkout": {
+      "supported": true,
+      "modes": ["NATIVE", "REDIRECT"]
+    }
+  },
+  "contact": {
+    "technical": "contact@peelr.ai"
+  }
+}
