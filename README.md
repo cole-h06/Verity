@@ -12,7 +12,7 @@ To score a claim's reliability you need to know the source's reliability. But to
 
 # The Approach
 
-Model sources and claims as a bipartite graph. Treat reliability scoring as an iterative convergence problem — source reliability scores and claim reliability scores solve each other simultaneously until they stabilize.
+Model sources and claims as a bipartite graph. Treat reliability scoring as an iterative convergence problem where source reliability scores and claim reliability scores solve each other simultaneously until they stabilize.
 
 # Stack
 
