@@ -3,6 +3,10 @@ import os
 SERPER_API_KEY = os.getenv("SERPER_API_KEY")
 TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 
+IDENTITY_RESET_MODE = True
+REBUILD_MODE = True
+MIN_CLAIMS_PER_PAGE = 5
+
 HIGH_SECURITY_DOMAINS = [
     "walmart.com",
     "amazon.com",
@@ -12,7 +16,13 @@ HIGH_SECURITY_DOMAINS = [
     "lowes.com",
     "sony.com",
     "bhphotovideo.com",
-    "jbl.com"
+    "jbl.com",
+    "bjs.com",
+    "costco.com",
+    "macys.com",
+    "wayfair.com",
+    "kohls.com",
+    "samsclub.com"
 ]
 
 HEAVY_JS_DOMAINS = [
@@ -20,13 +30,18 @@ HEAVY_JS_DOMAINS = [
     "apple.com"
 ]
 
+INTERACTIVE_DOMAINS = [
+    "sony.com",
+    "bjs.com"
+]
+
 VERIFICATION_TARGETS = {
     "laptops": ["cpu_model", "ram_gb", "storage_gb", "weight_lbs", "screen_brightness_nits", "display_resolution" "battery_wh"],
     "headphones": ["driver_type", "frequency_response_hz", "battery_life_hrs", "impedance_ohms", "noise_cancellation"],
     "portable_power": ["capacity_mah", "wattage", "output_ports", "charging_speed_w"],
-    "mini_fridges": ["capacity_cu_ft", "refrigerator_capacity_cu_ft", "freezer_capacity_cu_ft", "noise_db", "energy_star_certified"],
+    "mini_fridges": ["total_capacity", "refrigerator_capacity", "freezer_capacity", "noise_db", "energy_star_certified"],
     "air_fryers": ["capacity_qt", "basket_material", "wattage", "max_temperature_f"],
-    "espresso": ["pump_pressure_bar", "power_w", "heating_system", "water_tank_capacity", "bean_hopper_capacity"]
+    "espresso": ["pump_pressure_bar", "power_w", "heating_system", "water_tank_capacity"]
 }
 
 CATEGORY_STANDARDS = {
