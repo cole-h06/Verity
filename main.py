@@ -5,12 +5,13 @@ from db import (
     get_db,
     get_pending,
     mark_complete,
-    mark_failed
+    mark_failed,
+    reset_product_urls
 )
 from scout import run_scout
 from miner import run_miner
 from search_bridge import run_search_bridge
-from config import RETAILER_CONFIG
+from config import RETAILER_CONFIG, IDENTITY_RESET_MODE, REBUILD_MODE
 
 print("CONFIG LOADED:", RETAILER_CONFIG.get("bestbuy.com"))
 
@@ -30,7 +31,21 @@ async def run():
     while True:
         conn = get_db()
 
-        rows = get_pending(conn, limit=BATCH_SIZE)
+        if IDENTITY_RESET_MODE:
+            reset_product_urls(conn)
+
+        if REBUILD_MODE:
+            print("[REBUILD MODE] scanning all URLs")
+
+            rows = conn.execute("""
+                SELECT *
+                FROM pending_crawl
+                ORDER BY id
+                LIMIT ?
+            """, (BATCH_SIZE,)).fetchall()
+
+        else:
+            rows = get_pending(conn, limit=BATCH_SIZE)
 
         if not rows:
             conn.close()
@@ -49,9 +64,6 @@ async def run():
                 print(f"[MAIN SKIP FAILED] {url}")
                 continue
 
-            if status_row and status_row["status"] == "completed":
-                continue
-
             print(f"[MINER] {url} ({category})")
 
             result = None
@@ -59,14 +71,18 @@ async def run():
             for attempt in range(3):
                 try:
                     result = await run_miner(url, category)
-                    if result:
-                        break
-                except Exception:
-                    print("[ERROR]")
 
-                wait_time = random.uniform(10, 30)
-                print(f"[RETRY WRAPPER {attempt+1}] waiting {wait_time:.1f}s")
-                await asyncio.sleep(wait_time)
+                    if result != "retry":
+                        break
+
+                except Exception as e:
+                    print(f"[ERROR] {e}")
+                    result = "retry"
+
+                if result == "retry":
+                    wait_time = random.uniform(10, 30)
+                    print(f"[RETRY WRAPPER {attempt+1}] waiting {wait_time:.1f}s")
+                    await asyncio.sleep(wait_time)
 
             if result == "retry":
                 print("[RETRY]")
@@ -74,7 +90,10 @@ async def run():
 
             elif result:
                 print("[SUCCESS]")
-                mark_complete(conn, url)
+
+                if not result.get("needs_enrichment"):
+                    mark_complete(conn, url)
+
                 fail_count = 0
 
             else:
