@@ -40,6 +40,7 @@ async def run():
             rows = conn.execute("""
                 SELECT *
                 FROM pending_crawl
+                WHERE status='pending'
                 ORDER BY id
                 LIMIT ?
             """, (BATCH_SIZE,)).fetchall()

@@ -2060,13 +2060,54 @@ async def run_miner(url, category):
 
                     print(f"[GTIN VERIFY] incoming={gtin} existing={existing_gtin} similarity={similarity:.2f}")
 
-                    if similarity >= 0.95 and gtin != existing_gtin:
-                        print("\n=== JSON-LD GTIN VERIFIED ===")
-                        print("old_gtin:", existing_gtin)
-                        print("new_gtin:", gtin)
+                    if similarity >= 0.95:
 
-                    elif similarity < 0.95:
-                        print(f"[GTIN MISMATCH BLOCKED] {gtin} vs {existing_gtin}")
+                        if gtin != existing_gtin:
+                            print("\n=== JSON-LD GTIN VERIFIED ===")
+                            print("old_gtin:", existing_gtin)
+                            print("new_gtin:", gtin)
+
+                    else:
+                        print(f"[IDENTITY REJECT] {url}")
+
+                        conn.execute(
+                            "DELETE FROM pending_crawl WHERE url=?",
+                            (url,)
+                        )
+
+                        conn.commit()
+
+                        return {"skipped": True}
+
+            elif source_type == "retailer":
+
+                existing_title = (existing["title"] or "").lower()
+                current_title = (title or "").lower()
+
+                overlap = longest_common_substring(
+                    existing_title,
+                    current_title
+                )
+
+                similarity = overlap / max(
+                    len(existing_title),
+                    len(current_title),
+                    1
+                )
+
+                print(f"[TITLE VERIFY] similarity={similarity:.2f}")
+ 
+                if similarity < 0.45:
+                    print(f"[IDENTITY REJECT - TITLE] {url}")
+
+                    conn.execute(
+                        "DELETE FROM pending_crawl WHERE url=?",
+                        (url,)
+                    )
+
+                    conn.commit()
+
+                    return {"skipped": True}
 
             record_id = gtin or existing_gtin or existing_id
         else:
@@ -2268,8 +2309,24 @@ async def run_miner(url, category):
 
             upsert_product(conn, product_payload)
 
-            if gtin or model:
-                print("\n[POST-IDENTITY SEARCH BRIDGE]")
+            structured_identity_found = bool(
+                gtin
+                or (
+                    model
+                    and product
+                )
+                or (
+                    next_specs
+                    and (
+                        gtin or model
+                    )
+                )
+            )
+
+            if structured_identity_found:
+
+                print("\n[CASE A] STRUCTURED IDENTITY FOUND")
+                print("[POST-IDENTITY SEARCH BRIDGE - TOP 3 MODE]")
 
                 run_search_bridge(conn, {
                     "gtin": gtin,
@@ -2281,6 +2338,31 @@ async def run_miner(url, category):
                     "image_url": image_url,
                     "category": category
                 })
+
+            else:
+
+                print("\n[CASE B] NO STRUCTURED IDENTITY")
+                print("[SINGLE URL MODE]")
+
+                first_domain_row = conn.execute("""
+                    SELECT 1
+                    FROM crawled_pages cp
+                    JOIN sources s
+                      ON s.domain = ?
+                    LIMIT 1
+                """, (domain,)).fetchone()
+
+                if not first_domain_row:
+
+                    save_url(
+                        conn,
+                        url,
+                        category=category,
+                        priority=10,
+                        provider="fallback"
+                    )
+
+                    print(f"[SAVED SINGLE FALLBACK URL] {url}")
 
             print("\n=== UPSERT PRODUCT ===")
             print(product_payload)

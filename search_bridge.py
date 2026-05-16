@@ -38,10 +38,50 @@ def has_binary_extension(url: str) -> bool:
 
 def is_html_via_head(url: str) -> bool:
     try:
-        r = httpx.head(url, follow_redirects=True, timeout=5)
+        r = httpx.head(
+            url,
+            follow_redirects=True,
+            timeout=5,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 Chrome/120 Safari/537.36"
+                )
+            }
+        )
+
         content_type = r.headers.get("content-type", "").lower()
+
+        print(f"[HEAD CHECK] {url}")
+        print(f"[HEAD STATUS] {r.status_code}")
+        print(f"[HEAD CONTENT TYPE] {content_type}")
+
+        if "text/html" in content_type:
+            return True
+
+        print("[HEAD FALLBACK GET]")
+
+        r = httpx.get(
+            url,
+            follow_redirects=True,
+            timeout=10,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 Chrome/120 Safari/537.36"
+                )
+            }
+        )
+
+        content_type = r.headers.get("content-type", "").lower()
+
+        print(f"[GET STATUS] {r.status_code}")
+        print(f"[GET CONTENT TYPE] {content_type}")
+
         return "text/html" in content_type
-    except Exception:
+
+    except Exception as e:
+        print(f"[HEAD CHECK ERROR] {url} -> {e}")
         return False
 
 
@@ -148,6 +188,67 @@ def model_overlap_score(seed_model, candidate_model):
     score = overlap / max(len(seed_model), len(candidate_model))
 
     return score
+
+
+def fetch_html_title(url):
+    try:
+        r = httpx.get(
+            url,
+            follow_redirects=True,
+            timeout=10,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 Chrome/120 Safari/537.36"
+                )
+            }
+        )
+
+        html = r.text
+
+        h1_match = re.search(
+            r"<h1[^>]*>(.*?)</h1>",
+            html,
+            re.I | re.S
+        )
+
+        if h1_match:
+            title = re.sub(
+                r"<.*?>",
+                "",
+                h1_match.group(1)
+            )
+
+            title = re.sub(r"\s+", " ", title).strip()
+
+            print(f"[H1 TITLE] {title}")
+
+            return title
+
+        title_match = re.search(
+            r"<title>(.*?)</title>",
+            html,
+            re.I | re.S
+        )
+
+        if title_match:
+            title = re.sub(
+                r"\s+",
+                " ",
+                title_match.group(1)
+            ).strip()
+
+            print(f"[HTML TITLE] {title}")
+
+            return title
+
+        print(f"[TITLE NOT FOUND] {url}")
+
+        return None
+
+    except Exception as e:
+        print(f"[TITLE FETCH ERROR] {url} -> {e}")
+        return None
 
 
 def identity_matches(seed_product, candidate_product):
@@ -490,7 +591,17 @@ def run_search_bridge(conn, product):
     seen_urls = set()
     domain_counts = {}
 
-    MAX_URLS_PER_DOMAIN = 3
+    structured_identity = bool(
+        product.get("gtin")
+        or product.get("model")
+    )
+
+    if structured_identity:
+        MAX_URLS_PER_DOMAIN = 3
+        print("[CASE A] STRUCTURED IDENTITY → MULTI URL MODE")
+    else:
+        MAX_URLS_PER_DOMAIN = 1
+        print("[CASE B] NO STRUCTURED IDENTITY → SINGLE URL MODE")
 
     seed_url = product.get("source_url")
 
@@ -512,10 +623,48 @@ def run_search_bridge(conn, product):
             print(f"[FILTER SKIP] Already crawled URL: {url}")
             continue
 
+        already_pending = conn.execute(
+            "SELECT 1 FROM pending_crawl WHERE url=? LIMIT 1",
+            (url,)
+        ).fetchone()
+ 
+        if already_pending:
+            print(f"[FILTER SKIP] Already pending URL: {url}")
+            continue
+  
         if not is_crawlable(url):
             continue
 
         domain = extract_domain(url)
+
+        is_manufacturer = domain == get_mfr_domain(
+            conn,
+            product.get("brand")
+        )
+
+        if not structured_identity and not is_manufacturer:
+
+            candidate_title = fetch_html_title(url)
+
+            if candidate_title:
+
+                seed_title = product.get("title", "")
+
+                overlap = longest_common_substring(
+                    seed_title.lower(),
+                    candidate_title.lower()
+                )
+
+                similarity = overlap / max(
+                    len(seed_title),
+                    len(candidate_title)
+                )
+
+                print(f"[TITLE SIMILARITY] {similarity}")
+
+                if similarity < 0.45:
+                    print(f"[FILTER SKIP] Title mismatch: {url}")
+                    continue
 
         if not domain:
             print(f"[FILTER SKIP] No domain: {url}")
@@ -527,8 +676,24 @@ def run_search_bridge(conn, product):
 
         current_count = domain_counts.get(domain, 0)
 
-        if current_count >= MAX_URLS_PER_DOMAIN:
-            print(f"[FILTER SKIP] Domain limit reached: {domain} | {url}")
+        domain_limit = (
+            1 if is_manufacturer
+            else MAX_URLS_PER_DOMAIN
+        )
+
+        if current_count >= domain_limit:
+
+            if MAX_URLS_PER_DOMAIN == 1:
+                print(
+                    f"[FILTER SKIP] Single URL mode already satisfied: "
+                    f"{domain} | {url}"
+                )
+            else:
+                print(
+                    f"[FILTER SKIP] Multi URL limit reached: "
+                    f"{domain} | {url}"
+                )
+
             continue
 
         domain_counts[domain] = current_count + 1

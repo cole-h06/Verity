@@ -1,4 +1,5 @@
 from db import get_existing_attributes_for_category
+from config import CATEGORY_STANDARDS, CONVERSIONS, UNIT_SYNONYMS
 from openai import OpenAI
 from thefuzz import fuzz
 import json
@@ -10,98 +11,12 @@ client = OpenAI()
 CACHE_FILE = "unit_map_cache.json"
 
 PILLARS = {
-    "laptops": ["cpu_model", "ram_gb", "storage_gb", "weight_lbs", "screen_brightness_nits", "display_resolution", "battery_wh"],
-    "headphones": ["driver_type", "frequency_response_hz", "battery_life_hrs", "impedance_ohms", "noise_cancellation"],
-    "portable_power": ["capacity_mah", "wattage", "output_ports", "charging_speed_w"],
-    "mini_fridges": ["total_capacity", "refrigerator_capacity", "freezer_capacity", "noise_db", "energy_star_certified"],
-    "air_fryers": ["capacity_qt", "basket_material", "wattage", "max_temperature_f"],
-    "espresso": ["pump_pressure_bar", "power_w", "heating_system", "water_tank_capacity"]
-}
-
-CATEGORY_STANDARDS = {
-    "laptops": {
-        "weight_lbs": "lb",
-        "screen_brightness_nits": "nit",
-        "battery_wh": "wh"
-    },
-    "headphones": {
-        "frequency_response_hz": "hz",
-        "battery_life_hrs": "hr",
-        "impedance_ohms": "ohm"
-    },
-    "portable_power": {
-        "capacity_mah": "mah",
-        "wattage": "w",
-        "charging_speed_w": "w"
-    },
-    "mini_fridges": {
-        "capacity_cu_ft": "cu_ft",
-        "refrigerator_capacity_cu_ft": "cu_ft",
-        "freezer_capacity_cu_ft": "cu_ft",
-        "noise_db": "db"
-    },
-    "air_fryers": {
-        "capacity_qt": "qt",
-        "wattage": "w",
-        "max_temperature_f": "f"
-    },
-    "espresso": {
-        "pump_pressure_bar": "bar",
-        "power_w": "w",
-        "water_tank_capacity": "oz",
-        "bean_hopper_capacity": "g"
-    }
-}
-
-CONVERSIONS = {
-    "kg_to_lb": 2.20462,
-    "g_to_lb": 0.00220462,
-    "lb_to_kg": 0.453592,
-    "lb_to_g": 453.592,
-
-    "l_to_oz": 33.814,
-    "oz_to_l": 0.0295735,
-    "qt_to_oz": 32.0,
-    "oz_to_qt": 0.03125,
-    "l_to_qt": 1.05669,
-    "qt_to_l": 0.946353,
-    "oz_to_lb": 0.0625,
-    "lb_to_oz": 16.0,
-
-    "mm_to_in": 0.03937,
-    "cm_to_in": 0.3937,
-    "in_to_mm": 25.4,
-    "in_to_cm": 2.54,
-
-    "lb_to_lb": 1.0,
-    "in_to_in": 1.0,
-    "w_to_w": 1.0,
-    "qt_to_qt": 1.0,
-    "oz_to_oz": 1.0,
-    "l_to_l": 1.0,
-}
-
-UNIT_SYNONYMS = {
-    "lb": ["lb", "lbs", "pound", "pounds"],
-    "in": ["in", "inch", "inches"],
-    "ft": ["ft", "feet", "foot"],
-    "w": ["w", "watt", "watts"],
-    "qt": ["qt", "quart", "quarts"],
-    "oz": ["oz", "ounce", "ounces"],
-    "l": ["l", "liter", "liters"],
-    "g": ["g", "gram", "grams"],
-    "kg": ["kg", "kilogram", "kilograms"],
-    "bar": ["bar", "bars"],
-    "cu_ft": ["cu ft", "cu_ft", "cubic ft", "cubic-ft", "cubic feet", "ft3"],
-    "v": ["v", "volt", "volts"],
-    "a": ["a", "amp", "amps", "ampere", "amperes"],
-    "f": ["f", "fahrenheit", "degrees fahrenheit", "degree fahrenheit"],
-    "gb": ["gb", "gigabyte", "gigabytes"],
-    "mb": ["mb", "megabyte", "megabytes"],
-    "mhz": ["mhz", "megahertz"],
-    "ghz": ["ghz", "gigahertz"],
-    "percent": ["percent", "%"],
-    "nit": ["nit", "nits"],
+    "laptops": ["cpu_model", "ram_gb", "storage_gb", "weight_lb", "screen_brightness_nit", "display_resolution", "battery_life_hr"],
+    "headphones": ["driver_type", "frequency_response_hz", "battery_life_hr", "impedance_ohms", "noise_cancellation"],
+    "portable_power": ["capacity_mah", "power_w", "output_ports", "charging_speed_w"],
+    "mini_fridges": ["total_capacity_cu_ft", "refrigerator_capacity_cu_ft", "freezer_capacity_cu_ft", "noise_db", "energy_star_certified"],
+    "air_fryers": ["capacity_qt", "basket_material", "power_w", "max_temperature_f"],
+    "espresso": ["pump_pressure_bar", "power_w", "heating_system", "water_tank_capacity_oz"]
 }
 
 
@@ -142,7 +57,7 @@ def get_standard_unit(raw_unit_word, field_name=None):
     if len(standardized) == 0:
         standardized = "text"
 
-    if standardized in UNIT_SYNONYMS:
+    if standardized != "text":
         UNIT_MAP[word] = standardized
         save_unit_map()
 
@@ -376,7 +291,7 @@ Unit: {unit_word}
     except:
         return "text"
 
-def infer_unit(label):
+def infer_unit(label, candidate_unit=None):
 
     try:
 
@@ -392,7 +307,12 @@ You infer the most likely engineering measurement unit implied by a specificatio
 RULES:
 - Return ONLY a standard abbreviated unit
 - Examples of valid outputs: w, v, a, oz, lb, in, mm, bar, qt, cu_ft
-- If the label does not clearly imply a measurable quantity, return "text"
+- If the label implies a dimensionless quantitative count
+  (e.g. number of cores, number of ports, speaker count),
+  return "count"
+
+- Return "text" ONLY when the field is purely descriptive
+  and not quantitatively measurable
 - Do not explain
 - Do not return full words
 - Output valid JSON only
@@ -414,7 +334,9 @@ LABEL:
 
         unit = data.get("unit", "text").strip().lower()
 
-        if unit in UNIT_SYNONYMS:
+        if unit and unit != "text":
+            UNIT_MAP[candidate_unit.lower().strip()] = unit
+            save_unit_map()
             return unit
 
         return "text"
@@ -1103,8 +1025,15 @@ def process_product(
 
                 elif number_match:
 
+                    candidate_unit = re.sub(
+                        r"[-+]?\d*\.?\d+",
+                        "",
+                        display
+                    ).strip()
+
                     inferred_unit = infer_unit(
-                        payload["source_label"]
+                        payload["source_label"],
+                        candidate_unit
                     )
 
                     if inferred_unit and inferred_unit != "text":

@@ -36,56 +36,93 @@ INTERACTIVE_DOMAINS = [
     "bjs.com"
 ]
 
-VERIFICATION_TARGETS = {
-    "laptops": ["cpu_model", "ram_gb", "storage_gb", "weight_lbs", "screen_brightness_nits", "display_resolution" "battery_wh"],
-    "headphones": ["driver_type", "frequency_response_hz", "battery_life_hrs", "impedance_ohms", "noise_cancellation"],
-    "portable_power": ["capacity_mah", "wattage", "output_ports", "charging_speed_w"],
-    "mini_fridges": ["total_capacity", "refrigerator_capacity", "freezer_capacity", "noise_db", "energy_star_certified"],
-    "air_fryers": ["capacity_qt", "basket_material", "wattage", "max_temperature_f"],
-    "espresso": ["pump_pressure_bar", "power_w", "heating_system", "water_tank_capacity"]
-}
-
 CATEGORY_STANDARDS = {
     "laptops": {
-        "weight_lbs": "lb",
-        "screen_brightness_nits": "nits",
+        "weight_lb": "lb",
+        "screen_brightness_nit": "nit",
         "battery_wh": "wh"
     },
-
     "headphones": {
         "frequency_response_hz": "hz",
-        "battery_life_hrs": "hrs",
+        "battery_life_hr": "hr",
         "impedance_ohms": "ohm"
     },
-
     "portable_power": {
         "capacity_mah": "mah",
-        "wattage": "w",
+        "power_w": "w",
         "charging_speed_w": "w"
     },
-
     "mini_fridges": {
-        "capacity_cu_ft": "cu_ft",
+        "total_capacity_cu_ft": "cu_ft",
         "refrigerator_capacity_cu_ft": "cu_ft",
         "freezer_capacity_cu_ft": "cu_ft",
         "noise_db": "db"
     },
-
     "air_fryers": {
         "capacity_qt": "qt",
-        "wattage": "w",
-        "max_temp_f": "f",
-        "dimensions_in": "in"
+        "power_w": "w",
+        "max_temperature_f": "f"
     },
-
     "espresso": {
         "pump_pressure_bar": "bar",
         "power_w": "w",
-        "water_tank_capacity": "oz",
-        "bean_hopper_capacity": "g",
-        "dimensions_in": "in"
+        "water_tank_capacity_oz": "oz"
     }
 }
+
+
+CONVERSIONS = {
+    "kg_to_lb": 2.20462,
+    "g_to_lb": 0.00220462,
+    "lb_to_kg": 0.453592,
+    "lb_to_g": 453.592,
+
+    "l_to_oz": 33.814,
+    "oz_to_l": 0.0295735,
+    "qt_to_oz": 32.0,
+    "oz_to_qt": 0.03125,
+    "l_to_qt": 1.05669,
+    "qt_to_l": 0.946353,
+    "oz_to_lb": 0.0625,
+    "lb_to_oz": 16.0,
+
+    "mm_to_in": 0.03937,
+    "cm_to_in": 0.3937,
+    "in_to_mm": 25.4,
+    "in_to_cm": 2.54,
+
+    "lb_to_lb": 1.0,
+    "in_to_in": 1.0,
+    "w_to_w": 1.0,
+    "qt_to_qt": 1.0,
+    "oz_to_oz": 1.0,
+    "l_to_l": 1.0,
+}
+
+UNIT_SYNONYMS = {
+    "lb": ["lb", "lbs", "pound", "pounds"],
+    "in": ["in", "inch", "inches"],
+    "ft": ["ft", "feet", "foot"],
+    "w": ["w", "watt", "watts"],
+    "qt": ["qt", "quart", "quarts"],
+    "oz": ["oz", "ounce", "ounces"],
+    "l": ["l", "liter", "liters"],
+    "g": ["g", "gram", "grams"],
+    "kg": ["kg", "kilogram", "kilograms"],
+    "bar": ["bar", "bars"],
+    "cu_ft": ["cu ft", "cu_ft", "cubic ft", "cubic-ft", "cubic feet", "ft3"],
+    "v": ["v", "volt", "volts"],
+    "a": ["a", "amp", "amps", "ampere", "amperes"],
+    "f": ["f", "fahrenheit", "degrees fahrenheit", "degree fahrenheit"],
+    "gb": ["gb", "gigabyte", "gigabytes"],
+    "mb": ["mb", "megabyte", "megabytes"],
+    "mhz": ["mhz", "megahertz"],
+    "ghz": ["ghz", "gigahertz"],
+    "percent": ["percent", "%"],
+    "nit": ["nit", "nits"],
+    "count": ["count"]
+}
+
 
 SEED_URLS = {
     "laptops": [
@@ -150,17 +187,6 @@ RETAILER_CONFIG = {
             "[data-item-id] a"
         ],
         "next_selector": None
-    }
-}
-
-EXPERIENCE_CONFIG = {
-    "reddit.com": {
-        "css_selector": "shreddit-comment, shreddit-post",
-        "wait_for": "shreddit-comment"
-    },
-    "default": {
-        "css_selector": None,
-        "wait_for": None
     }
 }
 
