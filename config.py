@@ -22,7 +22,8 @@ HIGH_SECURITY_DOMAINS = [
     "macys.com",
     "wayfair.com",
     "kohls.com",
-    "samsclub.com"
+    "samsclub.com",
+    "pcrichard.com"
 ]
 
 HEAVY_JS_DOMAINS = [
