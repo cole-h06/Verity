@@ -19,7 +19,7 @@ The key question: does this graph admit a stable assignment of credibility and t
 
 - Python (crawler + scraper)
 - SQLite (data storage)
-- 275-300 products scraped across multiple unique source types (soon to be many more)
+- 275-300 products scraped across multiple unique source types (soon to be many more!)
 
 # Status
 
