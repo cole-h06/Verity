@@ -23,7 +23,7 @@ The key question: does this graph admit a stable assignment of credibility and t
 - SQLite (data storage)
 - Current domains include Amazon, Walmart, Target, Best Buy, Home Depot, Lowe's
 - Current categories: consumer electronics and home appliances.
-- Current scale: approximately 275-300 products scraped across multiple unique source types (soon to be many more!)
+- Current scale: approximately 275-300 products (soon to be many more!)
 
 # Status
 
