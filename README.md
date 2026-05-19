@@ -24,8 +24,8 @@ The key question: does this graph admit a stable assignment of credibility and t
 
 # Current Status of Verity
 
+- Prototype in development
 - Retailer, manufacturer, and government source ingestion
 - Domains include Amazon, Walmart, Target, Best Buy, Home Depot, Apple and more
 - Approximately 275-300 products indexed
 - 15,000+ extracted claims (soon to be many more!)
-
