@@ -4,7 +4,7 @@ A graph-based credibility inference system for conflicting e-commerce product sp
 
 # The Problem
 
-Sources frequently copy each other, causing incorrect claims to propagate across the web. Simple majority voting fails because agreement does not imply independence. Verity models the relationship between sources and claims as a graph and uses recursive analysis to estimate credibility of every source and the confidence of every claim it asserts.
+Sources frequently copy each other, causing incorrect claims to propagate across the web. Simple majority voting fails because agreement does not imply independence. Verity models the relationship between sources and claims as a graph and uses recursive analysis to estimate the credibility of every source and the confidence of every claim it asserts.
 
 # The Core Challenge
 
