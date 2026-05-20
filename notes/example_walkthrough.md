@@ -42,6 +42,4 @@ In this example:
 - S2 references or inherits from S1
 - C2 may therefore accumulate reinforcement originating from a partially shared dependency, not truly independent verification.
 
-If several sources inherit the same upstream specification, reinforcement may emerge from correlated structure rather than truly independent verification.
-
 This is one reason the graph topology itself may contain important credibility signals.
