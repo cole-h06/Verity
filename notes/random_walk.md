@@ -9,7 +9,7 @@ What parts of the network does the process keep returning to over time?
 The structure can be represented as a bipartite graph:
 
 <p align="center">
-  <img src="../images/source_claim_graph.png" width="370">
+  <img src="../images/source_claim_graph.png" width="400">
 </p>
 
 \[
