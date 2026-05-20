@@ -36,6 +36,12 @@ However, agreement alone does not necessarily imply independence.
 
 ![Dependency Propagation](../images/dependency_propagation.png)
 
+In this example:
+
+- S1 supports claim C1
+- S2 references or inherits from S1
+- C2 may therefore accumulate reinforcement originating from a partially shared dependency, not truly independent verification.
+
 If several sources inherit the same upstream specification, reinforcement may emerge from correlated structure rather than truly independent verification.
 
 This is one reason the graph topology itself may contain important credibility signals.
