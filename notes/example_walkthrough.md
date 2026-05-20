@@ -42,6 +42,6 @@ In this example:
 
 - S1 supports claim C1
 - S2 may reference or inherit from S1
-- C2 may therefore accumulate reinforcement originating from a partially shared dependency, not truly independent verification.
+- Therefore, C2 may accumulate reinforcement originating from a partially shared dependency, not truly independent verification.
 
 This is one reason the graph topology itself may contain important credibility signals.
