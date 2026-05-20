@@ -29,7 +29,7 @@ One possible traversal process:
 
 Maybe some regions of the graph reinforce themselves more strongly than others.
 
-Right now I'm experimenting with recursive update ideas like:
+I'm currently experimenting with recursive update ideas like:
 
 \[
 c_j = \sum_i w_i A_{ij}
