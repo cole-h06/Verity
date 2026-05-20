@@ -45,7 +45,7 @@ w_i^{(t+1)} \propto \sum_j c_j A_{ij}
 
 where claims reinforce sources and sources reinforce claims.
 
-Another problem is the walk can get trapped (e.g. "Claim Echo Loops" where two sources copy each other's specifications) or hit dead ends (e.g. a claim appears on a single obscure source)
+Another problem is the walk can get trapped (e.g. "Claim Echo Loops" where two sources copy each other's specifications) or hit dead ends (e.g. a claim appears on a single obscure source).
 
 Perhaps introducing a small random jump probability helps prevent this to ensure full distribution:
 
