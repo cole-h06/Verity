@@ -41,7 +41,7 @@ w_i^{(t+1)} \propto \sum_j c_j A_{ij}
 
 where claims reinforce sources and sources reinforce claims.
 
-Another problem is the walk can get trapped (e.g. "Claim Echo Loops" where two sources copy each other's specifications) or hit dead ends (e.g. a claim appears on a single obscure source).
+Another problem is the walk can get trapped (e.g., "Claim Echo Loops" where two sources copy each other's specifications) or hit dead ends (e.g., a claim appears on a single obscure source).
 
 It is important to note that agreement clearly does not imply independence. If many sources are all indirectly copying the same upstream information, the graph can appear highly confident with a lack of independent verification. In such a case, majority voting feels misleading.
 
