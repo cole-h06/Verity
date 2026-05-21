@@ -1,3 +1,16 @@
+from db import get_existing_attributes_for_category
+from utils.normalization import (
+    normalize_key,
+    normalize_value,
+    merge_similar_keys,
+    get_standard_unit,
+    get_existing_unit_map,
+    normalize_keys,
+    normalize_unit,
+    normalize_unit_llm,
+    infer_unit,
+    process_claims
+)
 from openai import OpenAI
 import json
 
@@ -951,158 +964,3 @@ OUTPUT:
             normalize_key(k): normalize_key(k)
             for k in keys
         }
-
-def normalize_unit_llm(unit_word, field_name=None):
-    try:
-        context = f"\nField: {field_name}" if field_name else ""
-
-        res = client.chat.completions.create(
-            model="gpt-4o-mini",
-            response_format={"type": "json_object"},
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"""
-You are a unit normalization engine.
-
-TASK:
-Convert the given unit into its standard technical abbreviation.
-
-CONTEXT:
-The unit comes from a product specification field.
-
-RULES:
-- Preserve exact meaning
-- Use standard engineering/technical abbreviations when a real measurable unit is present
-- Do NOT change measurement type
-- If the input is already an abbreviation, keep it
-- If the input is clearly a real unit word, abbreviate it
-- Prefer technical notation over natural language
-
-EXAMPLES:
-- inches → in
-- inch → in
-- pounds → lb
-- lbs → lb
-- watts → w
-- gigabytes → gb
-- megahertz → mhz
-- gigahertz → ghz
-- percent → percent
-- nits → nit
-
-ONLY RETURN "text" IF:
-- The input is NOT a measurable unit
-- OR it is purely descriptive (e.g., "stainless steel", "digital display")
-
-OUTPUT:
-{{ "unit": "..." }}
-
-Unit: {unit_word}
-{context}
-"""
-                }
-            ],
-            temperature=0
-        )
-
-        data = json.loads(res.choices[0].message.content)
-        return data.get("unit", "").strip()
-
-    except:
-        return "text"
-
-def infer_unit(label, candidate_unit=None):
-
-    try:
-
-        if candidate_unit:
-
-            normalized_candidate = normalize_unit_key(candidate_unit)
-
-            if normalized_candidate in UNIT_MAP:
-                cached = UNIT_MAP[normalized_candidate]
-
-                if cached and cached != "text":
-                    return cached
-
-            fast = normalize_unit(normalized_candidate)
-
-            if fast and fast != "text":
-                UNIT_MAP[normalized_candidate] = fast
-                save_unit_map()
-                return fast
-
-        res = client.chat.completions.create(
-            model="gpt-4o-mini",
-            response_format={"type": "json_object"},
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"""
-You infer the most likely engineering measurement unit implied by a specification label.
-
-- Only infer a numeric unit if the primary semantic meaning of the field is a measurable quantity.
-- If numbers appear incidentally inside a descriptive technology name, marketing term, model identifier, resolution string, connectivity standard, or composite text field, return "text".
-- "count" should only be used when the specification itself fundamentally represents a discrete quantity.
-- Prefer "text" when uncertain.
-
-RULES:
-- Return ONLY a standard abbreviated unit
-- Examples of valid outputs: w, v, a, oz, lb, in, mm, bar, qt, cu_ft
-- If the label implies a dimensionless quantitative count
-  (e.g. number of cores, number of ports, speaker count),
-  return "count"
-
-- Return "text" ONLY when the field is purely descriptive
-  and not quantitatively measurable
-- Do not explain
-- Do not return full words
-- Output valid JSON only
-
-OUTPUT FORMAT:
-{{
-  "unit": "..."
-}}
-
-LABEL:
-{label}
-"""
-                }
-            ],
-            temperature=0
-        )
-
-        data = json.loads(res.choices[0].message.content)
-
-        unit = data.get("unit", "text").strip().lower()
-
-        if unit and unit != "text":
-            UNIT_MAP[candidate_unit.lower().strip()] = unit
-            save_unit_map()
-            return unit
-
-        return "text"
-
-    except:
-        return "text"
-
-def normalize_unit(u):
-    if not u:
-        return None
-
-    u = u.lower().strip()
-    u = re.sub(r'[^\w\s]', '', u)
-
-    for canonical, variants in UNIT_SYNONYMS.items():
-        for v in variants:
-            if u == v or u.replace(" ", "") == v.replace(" ", ""):
-                return canonical
-
-    return "text"
-
-
-from llm.spec_extraction import (
-    run_llm_extraction,
-    translate_specs
-)
