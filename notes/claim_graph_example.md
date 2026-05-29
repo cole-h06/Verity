@@ -32,7 +32,7 @@ In the above images,
 
 If multiple independent sources support claim 892, the graph may repeatedly revisit that region during recursive propagation.
 
-But, it would be naive to classify each source as independent by default. This is because agreement alone does not necessarily imply independence.
+But, it would be naive to classify each source as independent by default. This is because agreement alone does not necessarily imply independence. Sources tend to copy what other sources claim.
 
 ### Dependency Propagation
 
