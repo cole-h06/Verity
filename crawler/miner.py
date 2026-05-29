@@ -80,7 +80,7 @@ async def run_miner(url, category):
 
     page_id = page_row["id"] if page_row else None
 
-    linked_product_id = None
+    product_id = None
 
     if page_id:
         linked_claim = conn.execute("""
@@ -93,12 +93,12 @@ async def run_miner(url, category):
         """, (page_id,)).fetchone()
 
         if linked_claim:
-            linked_product_id = linked_claim["product_id"]
+            product_id = linked_claim["product_id"]
 
-    linked_product = None
+    existing_product = None
 
-    if linked_product_id:
-        linked_product = conn.execute("""
+    if product_id:
+        existing_product = conn.execute("""
             SELECT *
             FROM products
             WHERE
@@ -106,68 +106,68 @@ async def run_miner(url, category):
                 OR lower(model)=lower(?)
             LIMIT 1
         """, (
-            linked_product_id,
-            linked_product_id
+            product_id,
+            product_id
         )).fetchone()
 
     existing_gtin = None
     existing_model = None
 
-    if linked_product:
-        existing_gtin = normalize_gtin(linked_product["gtin"])
+    if existing_product:
+        existing_gtin = normalize_gtin(existing_product["gtin"])
 
-        if is_valid_model(linked_product["model"]):
-            existing_model = linked_product["model"]
+        if is_valid_model(existing_product["model"]):
+            existing_model = existing_product["model"]
  
-    needs_identity_enrichment = not (
+    enrich_identity = not (
         existing_gtin or existing_model
     )
 
-    existing_claim_count = count_claims(
+    claim_count = count_claims(
         conn,
-        linked_product_id
+        product_id
     )
 
     MIN_CLAIMS = 10
 
-    needs_spec_rebuild = (
-        existing_claim_count < MIN_CLAIMS
+    rebuild_specs = (
+        claim_count < MIN_CLAIMS
     )
 
-    print("existing_claim_count:", existing_claim_count)
-    print("needs_spec_rebuild:", needs_spec_rebuild)
+    print("claim_count:", claim_count)
+    print("rebuild_specs:", rebuild_specs)
 
-    is_identity_mode = (
+    identity_mode = (
         IDENTITY_RESET_MODE
-        and needs_identity_enrichment
+        and enrich_identity
     )
 
     print("\n=== IDENTITY CHECK ===")
     print("existing_gtin:", existing_gtin)
     print("existing_model:", existing_model)
-    print("needs_identity_enrichment:", needs_identity_enrichment)
-    should_recrawl = (
-        needs_identity_enrichment
-        or needs_spec_rebuild
+    print("enrich_identity:", enrich_identity)
+    recrawl = (
+        enrich_identity
+        or rebuild_specs
     )
 
     print("\n=== RECRAWL CHECK ===")
-    print("needs_identity_enrichment:", needs_identity_enrichment)
-    print("needs_spec_rebuild:", needs_spec_rebuild)
-    print("should_recrawl:", should_recrawl)
+    print("enrich_identity:", enrich_identity)
+    print("rebuild_specs:", rebuild_specs)
+    print("recrawl:", recrawl)
  
-    is_rebuild_mode = (
-        REBUILD_MODE and should_recrawl
+    rebuild_mode = (
+        REBUILD_MODE and recrawl
     )
 
-    if is_rebuild_mode:
+    if rebuild_mode:
         print("[MODE] REBUILD")
-    elif is_identity_mode:
+    elif identity_mode:
         print("[MODE] IDENTITY")
     else:
         print("[MODE] NORMAL")
 
-    if status == "failed" and not is_rebuild_mode:
+    if status == "failed" and not rebuild_mode:
         print(f"[SKIP FAILED] {url}")
         conn.close()
         return {"skipped": True}
@@ -183,9 +183,9 @@ async def run_miner(url, category):
         conn=conn,
         existing_gtin=existing_gtin,
         existing_model=existing_model,
-        linked_product=linked_product,
+        existing_product=existing_product,
         category=category,
-        should_recrawl=should_recrawl,
+        recrawl=recrawl,
         url=url
     )
 
@@ -283,7 +283,7 @@ async def run_miner(url, category):
         print("markdown len:", len(markdown) if markdown else 0)
         print("product exists:", bool(product))
 
-        if is_identity_mode and not is_rebuild_mode:
+        if identity_mode and not rebuild_mode:
             print("[UNRESOLVED] skipping spec extraction")
             structured = []
 
@@ -302,14 +302,14 @@ async def run_miner(url, category):
             print(
                 f"[PROCESS_PRODUCT INPUT] combined_specs={len(combined_specs)} "
                 f"structured_input={len(structured_input or [])} "
-                f"skip_llm={False if is_rebuild_mode else bool(structured_input)}"
+                f"skip_llm={False if rebuild_mode else bool(structured_input)}"
             )
 
             structured = process_product(
                 product_json=product,
                 markdown=markdown,
                 category=category,
-                skip_llm=False if is_rebuild_mode else bool(structured_input),
+                skip_llm=False if rebuild_mode else bool(structured_input),
                 structured_input=structured_input
             )
 
@@ -362,7 +362,7 @@ async def run_miner(url, category):
         if not sku:
             sku = extract_sku_from_text(markdown, html)
 
-        if not is_rebuild_mode and is_duplicate_sku(conn, domain, sku):
+        if not rebuild_mode and is_duplicate_sku(conn, domain, sku):
             print(f"[DEDUP SKIP] {domain} | SKU={sku} | URL={url}")
 
             mark_complete(conn, url)
@@ -440,7 +440,7 @@ async def run_miner(url, category):
             model=model,
             sku=sku,
             url=url,
-            is_rebuild_mode=is_rebuild_mode
+            rebuild_mode=rebuild_mode
         )
 
         crawl_id = finalize_result["crawl_id"]
@@ -473,7 +473,7 @@ async def run_miner(url, category):
             next_specs=next_specs
         )
 
-        if is_identity_mode and not is_rebuild_mode:
+        if identity_mode and not rebuild_mode:
             print("[GTIN BEFORE SEARCH BRIDGE]:", gtin)
             print("\n=== TRIGGER SEARCH BRIDGE ===")
 
@@ -484,7 +484,7 @@ async def run_miner(url, category):
         print(f"[CLAIMS INSERTED] {len(structured)}")
         print("="*80)
 
-        if is_identity_mode and (gtin or model) and not is_rebuild_mode:
+        if identity_mode and (gtin or model) and not rebuild_mode:
             return run_second_pass_discovery(
                 conn=conn,
                 gtin=gtin,
