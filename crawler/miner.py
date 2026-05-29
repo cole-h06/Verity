@@ -123,7 +123,19 @@ def find_gtin_in_specs(combined_specs):
 
     return None
 
-        
+
+def merge_additional_properties(product, combined_specs):
+    if not product:
+        return
+
+    for prop in product.get("additionalProperty", []):
+        name = prop.get("name")
+        value = prop.get("value")
+
+        if name and value:
+            combined_specs.append((name, value))
+
+
 async def run_miner(url, category):
     conn = get_db()
 
@@ -285,10 +297,10 @@ async def run_miner(url, category):
                 combined_specs
             )
 
-        if product and product.get("additionalProperty"):
-            for p in product["additionalProperty"]:
-                if not isinstance(p, dict):
-                    continue
+        merge_additional_properties(
+            product,
+            combined_specs
+        )
 
                 name = p.get("name")
                 value = p.get("value")
