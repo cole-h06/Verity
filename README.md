@@ -35,7 +35,11 @@ You can think of it as a verifier traveling through the network at random: start
 # Current Status of Verity
 
 - Prototype in development
+  
 - Retailer, manufacturer, and government source ingestion
+  
 - Approximately 275-300 products indexed, focused on 6 core categories in electronics and home appliances (Laptops, Headphones, Portable Chargers/Banks, Air Fryers, Espresso Machines, and Mini Fridges)
+  
 - Sources include Amazon, Walmart, Target, Best Buy, Home Depot, Apple, and more
+  
 - 15,000+ extracted claims (soon to be many more!)
