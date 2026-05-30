@@ -63,7 +63,7 @@ IDENTITY_FIELDS = {
 }
 
 
-def get_existing_product(conn, url):
+def lookup_existing_product(conn, url):
     page_row = conn.execute("""
         SELECT id
         FROM crawled_pages
@@ -138,7 +138,7 @@ def get_gtin(combined_specs):
     return None
 
 
-def merge_additional_properties(product, combined_specs):
+def add_additional_properties(product, combined_specs):
     if not product:
         return
 
@@ -150,7 +150,7 @@ def merge_additional_properties(product, combined_specs):
             combined_specs.append((name, value))
 
 
-def remove_identity_claims(structured):
+def strip_identity_claims(structured):
     filtered = []
 
     for attr, data in structured:
@@ -171,7 +171,7 @@ def remove_identity_claims(structured):
     return filtered
 
 
-def recover_brand_title(structured, brand, title):
+def fill_missing_metadata(structured, brand, title):
     for attr, data in structured:
 
         if not isinstance(data, dict):
@@ -207,7 +207,7 @@ async def run_miner(url, category):
     status = status_row["status"] if status_row else "pending"
 
     product_id, existing_product, existing_gtin, existing_model = (
-        get_existing_product(conn, url)
+        lookup_existing_product(conn, url)
     )
  
     need_identity = not (
@@ -347,7 +347,7 @@ async def run_miner(url, category):
                 combined_specs
             )
 
-        merge_additional_properties(
+        add_additional_properties(
             product,
             combined_specs
         )
@@ -395,13 +395,13 @@ async def run_miner(url, category):
         for attr, data in structured[:15]:
             print(attr, "=>", data)
 
-        structured = remove_identity_claims(
+        structured = strip_identity_claims(
             structured
         )
 
         print(f"[POST FILTER CLAIM COUNT] {len(structured)}")
 
-        brand, title = recover_brand_title(
+        brand, title = fill_missing_metadata(
             structured,
             brand,
             title
