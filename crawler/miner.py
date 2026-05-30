@@ -131,8 +131,8 @@ def get_gtin(combined_specs):
         value = str(value).strip()
 
         if value.isdigit() and 12 <= len(value) <= 14:
-                print(f"[FINAL GTIN] {val}")
-                return val
+            print(f"[FINAL GTIN] {value}")
+            return value
 
     return None
 
@@ -237,7 +237,7 @@ async def run_miner(url, category):
     )
 
     print("\n=== RECRAWL CHECK ===")
-    print("enrich_identity:", enrich_identity)
+    print("need_identity:", need_identity)
     print("rebuild_specs:", rebuild_specs)
     print("recrawl:", recrawl)
  
@@ -342,7 +342,7 @@ async def run_miner(url, category):
         combined_specs = result["combined_specs"]
 
         if not identity["gtin"]:
-            identity["gtin"] = find_gtin_in_specs(
+            identity["gtin"] = get_gtin(
                 combined_specs
             )
 
@@ -393,8 +393,6 @@ async def run_miner(url, category):
         print("\n=== FINAL STRUCTURED CLAIMS ===")
         for attr, data in structured[:15]:
             print(attr, "=>", data)
-
-        filtered = []
 
         structured = remove_identity_claims(
             structured
