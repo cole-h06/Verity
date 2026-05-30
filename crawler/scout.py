@@ -138,7 +138,7 @@ async def run_scout():
 
                 visited_pages.add(current_url)
 
-                html = await fetch_with_retry(current_url) if is_high_security(current_url) else await fetch_with_crawler(current_url)
+                html = await crawl_page(current_url) if is_high_security(current_url) else await fetch_with_crawler(current_url)
 
                 if not html:
                     continue
