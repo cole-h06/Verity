@@ -2,7 +2,7 @@
 
 A graph-based credibility inference system for networks of conflicting claims without external ground truth.
 
-As AI systems increasingly make decisions and complete tasks using information gathered from across the web, determining which claims are most credible becomes increasingly important.
+As AI systems increasingly make decisions and complete tasks autonomously using information gathered from across the web, determining which claims are most credible becomes increasingly important.
 
 # Problem
 
