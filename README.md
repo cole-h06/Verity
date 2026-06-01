@@ -6,7 +6,7 @@ As AI systems make decisions and complete tasks autonomously using information g
 
 # Problem
 
-When sources disagree, deciding which information to trust becomes difficult. Verity models the relationship between sources and claims as a graph to estimate the credibility of every source and the confidence of every claim it asserts.
+When sources disagree, deciding what to trust becomes difficult. Verity models the relationship between sources and claims as a graph to estimate the credibility of every source and the confidence of every claim it asserts.
 
 # Core Challenge
 
