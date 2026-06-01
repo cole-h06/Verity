@@ -17,7 +17,7 @@ A claim becomes credible if it is supported by credible sources.
 
 # Approach
 
-Sources and claims form a bipartite graph. Each edge represents a source asserting a claim about a product spec. Verity treats the dataset as a network rather than a collection of independent observations.
+Sources and claims form a bipartite graph. Each edge represents a source asserting a claim. Verity treats the dataset as a network rather than a collection of independent observations.
 <p align="center">
   <img src="images/source_claim_graph.png" width="520">
 </p>
@@ -29,7 +29,7 @@ The idea is to see whether credibility can emerge naturally through repeated mov
 
 You can think of it as a verifier traveling at random: starting on one source then moving to the set of claims it asserts, then from those claims to it's other supporting sources, over and over again. Sources that consistently connect to credible claims will get revisited more often. Claims supported by credible sources also get revisited more often.
 
-However, the underlying framework is not specific to e-commerce. Any domain involving sources, claims, and disagreement can potentially be modeled using the same graph structure.
+The current implementation focuses on product specifications as an initial testbed. However, the underlying framework is not specific to e-commerce. Any domain involving sources, claims, and disagreement can potentially be modeled using the same graph structure.
 
 # Stack
 
