@@ -36,7 +36,7 @@ The current implementation focuses on product specifications as an initial testb
 - Python (crawler + scraper)
 - SQLite (data storage)
 
-# Current Status of Verity (June 8th, 2026)
+# Current Status of Verity (As of June 8th, 2026)
 
 - Prototype in development
   
@@ -46,4 +46,4 @@ The current implementation focuses on product specifications as an initial testb
   
 - Sources include Amazon, Walmart, Target, Best Buy, Home Depot, Apple, and more
   
-- 20,000+ extracted raw claims (soon to be many more!)
+- 20,000+ extracted raw claims
