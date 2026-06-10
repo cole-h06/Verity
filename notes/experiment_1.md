@@ -39,8 +39,7 @@ Several manufacturer sources ranked above
 large retailers despite having substantially
 fewer claims.
 
-I have done further inspection of the highest-support claims
-and it turns out that many were heavily corroborated
+After further inspection of the highest-support claims, it turns out that many were heavily corroborated
 across manufacturers and retailers.
 
 Examples included:
