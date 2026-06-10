@@ -39,8 +39,8 @@ Several manufacturer sources ranked above
 large retailers despite having substantially
 fewer claims.
 
-Inspection of the highest-support claims
-revealed that many were heavily corroborated
+I have done further inspection of the highest-support claims
+and it turns out that many were heavily corroborated
 across manufacturers and retailers.
 
 Examples included:
@@ -56,8 +56,8 @@ Example:
 
 battery_capacity = 20000 hours
 
-This suggests that Version 0 rewards
-agreement but does not distinguish between
+This may imply that Version 0 rewards
+agreement, but does not distinguish between
 agreement and correctness.
 
 ## Known Questions
