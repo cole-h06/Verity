@@ -59,7 +59,7 @@ This may imply that Version 0 rewards
 agreement, but does not distinguish between
 agreement and correctness.
 
-## Known Questions
+## Questions
 
 - Should agreement be normalized?
 - How should disagreement be modeled?
