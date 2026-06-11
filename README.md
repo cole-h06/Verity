@@ -34,15 +34,27 @@ The current implementation focuses on product specifications as an initial testb
 - Python (crawler + scraper)
 - SQLite (data storage)
 
-# Current Status of Verity
- (As of June 8, 2026)
+## Current Status
 
-- Prototype in development
-  
-- Retailer, manufacturer, and government source ingestion
-  
-- Approximately 275–300 products indexed across consumer electronics and home appliances
-  
-- Sources include Amazon, Walmart, Target, Best Buy, Home Depot, Apple, and more
-  
-- 20,000+ extracted raw claims
+(As of June 10, 2026)
+
+### Dataset
+
+- 24 sources
+- 15,185 canonical claims
+
+### Recent Results
+
+- Ran the first credibility propagation experiment
+- Non-uniform rankings emerged from a uniform starting state
+- Tested random initialization
+- Rankings were nearly identical after convergence
+- Maximum observed difference: 0.000799
+
+### Open Questions
+
+- Should source degree be normalized?
+- How should source independence be modeled?
+- Does the system always converge to the same ranking?
+- Can agreement be separated from correctness?
+- Can credibility emerge from graph structure alone?
