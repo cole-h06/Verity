@@ -34,7 +34,7 @@ The current implementation focuses on product specifications as an initial testb
 - Python (crawler + scraper)
 - SQLite (data storage)
 
-## Current Status
+## Current Status of Verity
 
 (As of June 10, 2026)
 
