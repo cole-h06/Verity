@@ -12,10 +12,8 @@ DB = os.path.join(
 )
 
 
+# start every source with equal weight
 def initialize_uniform(source_ids):
-    """
-    Give every source equal credibility.
-    """
 
     n = len(source_ids)
 
@@ -25,31 +23,26 @@ def initialize_uniform(source_ids):
     }
 
 
+# start from random weights instead
 def initialize_random(source_ids):
-    """
-    Start with random credibility scores.
-    """
 
     scores = {
         source_id: random.random()
         for source_id in source_ids
     }
 
-    return normalize_distribution(
+    return normalize(
         scores
     )
 
 
-def compute_claim_support(
+# unlike v1, a source now splits its credibility
+# across every claim it makes
+def score_claims(
     credibility,
     claim_to_sources,
     source_to_claims
 ):
-    """
-    Distribute source credibility
-    across all claims asserted by
-    that source.
-    """
 
     claim_support = {}
 
@@ -59,6 +52,8 @@ def compute_claim_support(
 
         for source_id in source_ids:
 
+            # if a source makes lots of claims,
+            # each claim gets a smaller share
             degree = len(
                 source_to_claims[source_id]
             )
@@ -66,6 +61,8 @@ def compute_claim_support(
             if degree == 0:
                 continue
 
+            # pass a fraction of the source score
+            # into this claim
             support += (
                 credibility[source_id]
                 / degree
@@ -76,14 +73,11 @@ def compute_claim_support(
     return claim_support
 
 
-def propagate_credibility(
+# claims send support back into sources
+def update_sources(
     claim_support,
     source_to_claims
 ):
-    """
-    Sources inherit credibility from
-    the claims they assert.
-    """
 
     next_credibility = {}
 
@@ -105,12 +99,10 @@ def propagate_credibility(
     return next_credibility
 
 
-def normalize_distribution(
+# otherwise scores grow every iteration
+def normalize(
     credibility
 ):
-    """
-    Keep total credibility fixed.
-    """
 
     total = sum(
         credibility.values()
@@ -126,45 +118,43 @@ def normalize_distribution(
     }
 
 
-def run_power_iteration(
+# keep passing scores through the graph
+def run_iterations(
     source_to_claims,
     claim_to_sources,
     credibility,
     iterations=20
 ):
-    """
-    Repeatedly propagate credibility
-    through the graph.
-    """
 
-    for _ in range(iterations):
+    for iteration in range(iterations):
 
-        claim_support = compute_claim_support(
+        # push source credibility into claims
+        claim_support = score_claims(
             credibility,
             claim_to_sources,
             source_to_claims
         )
 
-        credibility = propagate_credibility(
+        # then let claims vote back on sources
+        credibility = update_sources(
             claim_support,
             source_to_claims
         )
 
-        credibility = normalize_distribution(
+        # keep everything on the same scale
+        credibility = normalize(
             credibility
         )
 
     return credibility
 
 
-def compare_distributions(
+# see whether different starting points
+# end up at the same solution
+def compare_results(
     first,
     second
 ):
-    """
-    Measure the largest difference
-    between two final distributions.
-    """
 
     maximum_difference = 0.0
 
@@ -181,7 +171,8 @@ def compare_distributions(
     return maximum_difference
 
 
-def load_graph():
+# load the assertion graph from sqlite
+def load_assertion_graph():
 
     conn = sqlite3.connect(DB)
     cursor = conn.cursor()
@@ -265,7 +256,7 @@ def main():
         source_to_claims,
         claim_to_sources,
         source_names
-    ) = load_graph()
+    ) = load_assertion_graph()
 
     print(
         f"sources: {len(source_to_claims)}"
@@ -287,7 +278,7 @@ def main():
         source_ids
     )
 
-    uniform = run_power_iteration(
+    uniform = run_iterations(
         source_to_claims,
         claim_to_sources,
         uniform
@@ -301,13 +292,13 @@ def main():
         source_ids
     )
 
-    random_scores = run_power_iteration(
+    random_scores = run_iterations(
         source_to_claims,
         claim_to_sources,
         random_scores
     )
 
-    difference = compare_distributions(
+    difference = compare_results(
         uniform,
         random_scores
     )
