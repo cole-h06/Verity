@@ -6,7 +6,7 @@ Date: June 10, 2026
 
 One potential problem with the initial propagation model is that sources asserting many claims may accumulate an advantage simply because they participate in more parts of the graph.
 
-To test this, source credibility was divided by source degree before being distributed to claims.
+To test this, I divided source credibility by source degree before it is distributed to claims.
 
 The goal was to determine whether the rankings produced by Experiment 1 were primarily driven by graph structure or by source claim volume.
 
