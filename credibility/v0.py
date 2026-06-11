@@ -1,6 +1,5 @@
 import os
 import sqlite3
-import numpy as np
 
 from collections import defaultdict
 
@@ -11,11 +10,8 @@ DB = os.path.join(
     "verity_v1.db"
 )
 
-
-def initialize_credibility_vector(source_ids):
-    """
-    Initialize all source credibility scores uniformly.
-    """
+# start every source with equal weight
+def initialize_vector(source_ids):
 
     n = len(source_ids)
 
@@ -25,14 +21,11 @@ def initialize_credibility_vector(source_ids):
     }
 
 
-def compute_claim_support(
+# source credibility flows into claims
+def score_claims(
     credibility,
     claim_to_sources
 ):
-    """
-    Claims inherit support from the
-    sources that assert them.
-    """
 
     claim_support = {}
 
@@ -47,15 +40,11 @@ def compute_claim_support(
 
     return claim_support
 
-
-def propagate_credibility(
+# claims push credibility back into sources
+def update_sources(
     claim_support,
     source_to_claims
 ):
-    """
-    Sources inherit credibility from
-    the claims they assert.
-    """
 
     next_credibility = {}
 
@@ -76,13 +65,10 @@ def propagate_credibility(
 
     return next_credibility
 
-
-def normalize_distribution(
+# otherwise scores grow every iteration
+def normalize(
     credibility
 ):
-    """
-    Keep the total credibility mass fixed.
-    """
 
     total = sum(
         credibility.values()
@@ -97,18 +83,14 @@ def normalize_distribution(
         in credibility.items()
     }
 
-
-def run_power_iteration(
+# simple recursive update loop
+def run_iterations(
     source_to_claims,
     claim_to_sources,
     iterations=20
 ):
-    """
-    Repeatedly propagate credibility
-    through the assertion graph.
-    """
 
-    credibility = initialize_credibility_vector(
+    credibility = initialize_vector(
         source_to_claims.keys()
     )
 
@@ -120,17 +102,17 @@ def run_power_iteration(
                 f"iteration {iteration + 1}"
             )
 
-        claim_support = compute_claim_support(
+        claim_support = score_claims(
             credibility,
             claim_to_sources
         )
 
-        credibility = propagate_credibility(
+        credibility = update_sources(
             claim_support,
             source_to_claims
         )
 
-        credibility = normalize_distribution(
+        credibility = normalize(
             credibility
         )
 
@@ -191,7 +173,7 @@ def main():
     print("running credibility iterations...")
     print()
 
-    credibility, claim_support = run_power_iteration(
+    credibility, claim_support = run_iterations(
         source_to_claims,
         claim_to_sources
     )
