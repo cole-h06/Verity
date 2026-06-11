@@ -62,7 +62,7 @@ This experiment provides preliminary evidence that the current propagation rule 
 
 If this behavior persists under additional testing, the resulting credibility distribution may represent a property of the graph itself.
 
-## Questions
+## Open Questions
 
 * Does the same behavior occur across many random initializations?
 * How quickly does the system converge?
