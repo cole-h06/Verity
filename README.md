@@ -52,7 +52,7 @@ The current implementation focuses on product specifications as an initial testb
 * Maximum observed difference after convergence: 2.37e-8
 * Evidence suggests the propagation operator converges to a stable fixed point
 * Credibility currently collapses heavily onto bjs.com
-* Explicit disagreement propagation has not yet been incorporated (soon to be accounted for)
+* Explicit disagreement propagation has not yet been incorporated
 
 ### Current Questions
 
