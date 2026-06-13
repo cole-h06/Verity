@@ -30,7 +30,7 @@ $$
 
 where:
 
-* $(s_i)$$ = source credibility
+* $(s_i)$ = source credibility
 * $(d_i)$ = number of claims made by source (i)
 
 Then claims vote back onto sources:
