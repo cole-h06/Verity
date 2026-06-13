@@ -100,9 +100,7 @@ Need to figure out whether this is:
 * missing disagreement propagation
 * something wrong in the operator itself
 
-Also, still haven't incorporated explicit disagreement yet.
-
-Currently, agreement only adds support. Conflicting claims don't directly subtract credibility.
+Also, still haven't incorporated explicit disagreement yet. Currently, agreement only adds support. Conflicting claims don't directly subtract credibility.
 
 Next steps:
 
