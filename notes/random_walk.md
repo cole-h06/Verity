@@ -12,14 +12,14 @@ The structure can be represented as a bipartite graph:
   <img src="../images/source_claim_graph.png" width="600">
 </p>
 
-\[
+$$
 G = (S, C, E)
-\]
+$$
 
 Where:
-- \(S\) represents sources
-- \(C\) represents claims
-- \(E\) represents assertions between them
+* $S$ = sources
+* $C$ = claims
+* $E$ = assertions
 
 One possible traversal process:
 
@@ -31,13 +31,13 @@ Maybe some regions of the graph reinforce themselves more strongly than others.
 
 I'm currently experimenting with recursive update ideas like:
 
-\[
+$$
 c_j = \sum_i w_i A_{ij}
-\]
+$$
 
-\[
+$$
 w_i^{(t+1)} \propto \sum_j c_j A_{ij}
-\]
+$$
 
 where claims reinforce sources and sources reinforce claims.
 
@@ -47,6 +47,6 @@ It is important to note that agreement clearly does not imply independence. If m
 
 Perhaps introducing a small random jump probability helps prevent this to ensure full distribution:
 
-\[
+$$
 P' = \alpha P + (1-\alpha)U
-\]
+$$
