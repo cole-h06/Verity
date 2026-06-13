@@ -222,7 +222,7 @@ def compare_results(
     return maximum_difference
 
 
-# load the bipartite graph
+# load the graph
 # from sqlite
 def load_assertion_graph():
 
