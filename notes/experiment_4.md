@@ -89,6 +89,7 @@ bjs.com ≈ 0.99999996
 while nearly every other source collapses toward zero.
 
 ![Final rankings](../images/exp4_final_rankings.png)
+![Final rankings](../images/exp4_solution_difference.png)
 
 *Final source credibility scores after convergence.*
 
