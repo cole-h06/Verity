@@ -43,7 +43,7 @@ where claims reinforce sources and sources reinforce claims.
 
 A problem with this though is the walk can get trapped (e.g., "Claim Echo Loops" where two or more sources copy each other's claims) or hit dead ends (e.g., a claim appears on a single obscure source).
 
-It is also important to note that agreement clearly does not imply independence. Many sources are all copying, or, "scraping" the same upstream information which results in the graph appearing highly confident with a lack of independent verification. I believe that in such a case, majority voting feels misleading.
+It is also important to note that agreement clearly does not imply independence. As said before, many sources are all copying, or, "scraping" the same upstream information which results in the graph appearing highly confident with a lack of independent verification. I believe that in such a case, majority voting feels misleading.
 
 Perhaps introducing a small random jump probability helps prevent this to ensure full distribution:
 
