@@ -2,8 +2,6 @@
 
 **Date:** June 14, 2026
 
-## Motivation
-
 Experiment 4 showed that the graph consistently converges to a fixed point under both uniform and random initialization.
 
 Noted that the resulting rankings revealed a problem. Even after source degree normalization, some sources could still accumulate nearly all credibility because of the graph structure.
