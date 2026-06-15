@@ -4,7 +4,7 @@
 
 Experiment 4 demonstrated the graph consistently converges to a fixed point for both uniform and random initialization.
 
-I've noted that the resulting rankings revealed a hidden problem. Even after source degree normalization, some sources could still consume nearly all credibility due to the graph structure.
+I've noted that the ranking results revealed a hidden problem. Even after source degree normalization, some sources could still consume nearly all credibility due to the graph structure.
 
 To address this, we introduced normalization on both sides of the bipartite graph.
 
