@@ -44,4 +44,4 @@ In the graph above:
 - S2 may reference or inherit from S1
 - Therefore, C2 may receive reinforcement originating from a partially shared dependency, not truly independent verification.
 
-This is a reason I believe the graph topology itself may contain important credibility signals that is worth exploring.
+This could indicate the graph topology itself may contain important credibility signals that's worth exploring.
