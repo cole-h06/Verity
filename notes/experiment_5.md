@@ -2,11 +2,13 @@
 
 **Date:** June 14, 2026
 
-Experiment 4 demonstrated consistent convergence to a fixed point under both uniform and random initialization.
+## Motivation
 
-I have noted that the resulting rankings revealed a problem. Even after source degree normalization, some sources could still consume nearly all credibility because of the graph structure.
+Experiment 4 showed that the graph consistently converges to a fixed point under both uniform and random initialization.
 
-To address this we introduced normalization on both sides of the bipartite graph.
+Noted that the resulting rankings revealed a problem. Even after source degree normalization, some sources could still accumulate nearly all credibility because of the graph structure.
+
+To address this, we introduced normalization on both sides of the bipartite graph.
 
 ## Previous propagation
 
@@ -56,6 +58,10 @@ The idea is simple: if many sources contribute to the same claim, we average tha
 
 * 13,860 assertions
 
+![Graph summary](../images/exp5_graph_summary.png)
+
+*Current graph statistics used in Experiment 5.*
+
 Average sources per claim:
 
 $$
@@ -84,11 +90,27 @@ Products by number of sources:
 
 ## Results
 
+![Uniform initialization](../images/exp5_uniform_start.png)
+
+*Early iterations under uniform initialization.*
+
 Both initialization schemes converged:
 
 * Uniform initialization: 81 iterations
 
+![Uniform convergence](../images/exp5_uniform_convergence.png)
+
+*Uniform initialization converged after 81 iterations.*
+
 * Random initialization: 90 iterations
+
+![Random initialization](../images/exp5_random_start.png)
+
+*Early iterations under random initialization.*
+
+![Random convergence](../images/exp5_random_convergence.png)
+
+*Random initialization converged after 90 iterations.*
 
 Maximum difference between final solutions:
 
@@ -96,7 +118,11 @@ $$
 4.44 \times 10^{-8}
 $$
 
-The resulting rankings were evidently more balanced than in previous experiments.
+![Solution difference](../images/exp5_solution_difference.png)
+
+*The final solutions from uniform and random initialization differed by less than \(10^{-7}\).*
+
+The resulting rankings were substantially more balanced than in previous experiments.
 
 Top sources:
 
@@ -106,9 +132,13 @@ Top sources:
 4. microcenter.com — 0.097
 5. bhphotovideo.com — 0.084
 
+![Final rankings](../images/exp5_final_rankings.png)
+
+*Bidirectional normalization produced substantially more balanced source rankings than previous experiments.*
+
 ## Current observations
 
-The algorithm now appears to behave much more reasonably than in earlier experiments. The remaining limitation is not convergence. It's graph density, a work in progress.
+The algorithm now appears to behave much more reasonably than in earlier experiments. The remaining limitation is not convergence, but graph density.
 
 Most claims are still asserted by only a single source:
 
@@ -118,6 +148,6 @@ $$
 
 This means the graph contains relatively little agreement information for credibility propagation.
 
-Improving product matching and claim canonicalization may have a larger impact than further changes to the propagation algorithm itself.
+Going forward, improving product matching and claim canonicalization may have a larger impact than further changes to the propagation algorithm itself.
 
 The current results suggest that the propagation scheme is no longer the primary bottleneck. Instead, I believe increasing overlap between sources may provide the largest improvement going forward in future experiments.
