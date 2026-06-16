@@ -124,11 +124,11 @@ The resulting rankings were evidently more balanced than in previous experiments
 
 Top sources:
 
-1. bestbuy.com — 0.328
-2. amazon.com — 0.231
-3. target.com — 0.120
-4. microcenter.com — 0.097
-5. bhphotovideo.com — 0.084
+1. bestbuy.com - 0.328
+2. amazon.com - 0.231
+3. target.com - 0.120
+4. microcenter.com - 0.097
+5. bhphotovideo.com - 0.084
 
 ![Final rankings](../images/exp5_final_rankings.png)
 
