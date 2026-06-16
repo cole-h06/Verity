@@ -2,7 +2,7 @@
 
 Date: June 16, 2026
 
-I noticed something strange after looking at the final source rankings - several sources consistently converged to exactly zero credibility:
+I noticed something strange after looking at the final source rankings. Several sources consistently converged to exactly zero credibility:
 
 - lenovo.com
 - pcrichard.com
@@ -45,12 +45,31 @@ bestbuy.com      4615 / 5276 unique claims  (0.8747)
 
 Every source that collapsed to zero had a unique ratio of exactly 1.0.
 
+To see whether this pattern extended beyond only the collapsed sources, I plotted each source's unique claim ratio against its final credibility score:
+
+![Isolation vs credibility](../images/isolation_vs_credibility.png)
+
+Interestingly enough, the relationship does not appear purely linear. Several highly credible sources still accumulate high unique claim ratios. Though, every source with a unique ratio of exactly 1.0 converged to zero credibility.
+
 Why?
 
 At least on the current graph, it appears as though unsupported claims may simply just not have enough paths to receive credibility back.
 
 source -> claim -> source
 
-There may not be anywhere for credibility to flow besides back into itself. That is, of course, if the claim is unique to a single source.
+This raises an important question we have to confront. Is the system penalizing false claims, or merely isolated ones?
 
-Perhaps it is a flaw in the update rule. Or maybe this is the kind of result we should expect from a sparse graph.
+After all- a unique claim is not always necessarily incorrect. It may simply be new information that no other source has observed and recorded yet.
+
+Likewise, agreement is not necessarily evidence of truth. Multiple sources may be repeating the same incorrect information.
+
+This suggests there may be at least four possible cases:
+
+- shared truth
+- shared falsehood
+- unique truth
+- unique falsehood
+
+The graph currently observes agreement. It does not account for independence yet.
+
+Suppose a source is notorious for copying another source. How do we know? How does the system naturally identify correlated sources and ultimately, the outlier(s)?
