@@ -2,7 +2,7 @@
 
 Date: June 16, 2026
 
-The final source rankings revealed a weird anomaly. Several sources consistently converged to exactly zero credibility:
+Something odd happened with the final source credibility rankings. Several sources ended up having zero credibility for them to merge.
 
 - lenovo.com
 - pcrichard.com
@@ -11,65 +11,58 @@ The final source rankings revealed a weird anomaly. Several sources consistently
 - cosori.com
 - dell.com
 - bjs.com
+- 
+At first, I assumed the propagation algorithm was buggy because the zero seemed a bit too perfect. But after reviewing the graph at the end for claim support, a noticeable pattern formed.
 
-At first, I assumed the propagation algorithm had a bug because zero seemed too clean.
-But when I checked the claim support after the graph, a distinct pattern emerged.
-
-For each source, I computed:
+For each source, I calculated:
 
 unique_ratio =
-(unique claims asserted by source) /
-(total claims asserted by source)
+(unique claims made by source) /
+(claims made by source)
 
-where a unique claim is asserted by exactly one source.
+where unique claim means a claim made by only 1 source.
 
-Here is the breakdown:
+Here is a sampling:
 
 ```text
-lenovo.com      57 / 57 unique claims   (1.0000)
-pcrichard.com   50 / 50 unique claims   (1.0000)
-hp.com          47 / 47 unique claims   (1.0000)
-macys.com       23 / 23 unique claims   (1.0000)
-cosori.com      12 / 12 unique claims   (1.0000)
-dell.com        12 / 12 unique claims   (1.0000)
-bjs.com         10 / 10 unique claims   (1.0000)
+lenovo.com 57 / 57 unique claims (1.0000)
+pcrichard.com 50 / 50 unique claims (1.0000)
+hp.com 47 / 47 unique claims (1.0000)
+macys.com 23 / 23 unique claims (1.0000)
+cosori.com 12 / 12 unique claims (1.0000)
+dell.com 12 / 12 unique claims (1.0000)
+bjs.com 10 / 10 unique claims (1.0000)
 ```
-Meanwhile:
+compared to:
 ```
-ninjakitchen.com   14 / 25 unique claims    (0.5600)
-jbl.com            28 / 42 unique claims    (0.6667)
-microcenter.com   511 / 690 unique claims   (0.7406)
-amazon.com       2526 / 3019 unique claims  (0.8367)
-bestbuy.com      4615 / 5276 unique claims  (0.8747)
+ninjakitchen.com 14 / 25 unique claims (0.5600)
+jbl.com 28 / 42 unique claims (0.6667)
+microcenter.com 511 / 690 unique claims (0.7406)
+amazon.com 2526 / 3019 unique claims (0.8367)
+bestbuy.com 4615 / 5276 unique claims (0.8747)
 ```
 
-Every source that collapsed to zero had a unique ratio of exactly 1.0.
+Every single source that dropped to zero also happened to have a unique ratio of exactly 1.0.
 
-I plotted each source's unique claim ratio against its final credibility score:
+Below is a plot of the unique claim ratio vs. Final credibility of each source:
 
 ![Isolation vs credibility](../images/isolation_vs_credibility.png)
 
-The correlation isn't purely linear. Many highly credible sources still receive high unique claim ratios. Though, every source with a unique ratio of exactly 1.0 converged to zero credibility.
+The relation isn't quite linear, there's still a decent amount of sources that get high unique ratios but still good credibility. However, every source with a unique ratio of exactly 1.0 was dropped to zero.
 
 Why?
 
-At least on the current graph, it appears as though unsupported claims may simply just not have enough paths to receive credibility back.
+It seems that without any other source to vouch for it (on this graph, at least) unsupported claims can't seem to climb back up.
 
-source -> claim -> source
+Source -> claim -> source
 
-This points to a fundamental question. Is the system penalizing false claims or merely isolated ones?
+This highlights a more fundamental question: are we penalizing false claims or only isolated ones? A unique claim isn't always incorrect, it could be a newly discovered piece of information. Meanwhile, a widely reported claim isn't necessarily correct.
 
-After all- a unique claim is not always necessarily incorrect. It may simply be new information that no other source has observed and recorded yet.
-
-On the flip side, agreement is not necessarily evidence of truth. Multiple sources may be repeating the same incorrect information.
-
-This suggests there may be at least four possible cases:
-
+The four cases that this suggests are:
 - shared truth
 - shared falsehood
 - unique truth
 - unique falsehood
-
-The graph currently observes agreement. It does not account for independence yet.
-
-If a source is notorious for copying another source. How do we know? How does the system naturally identify correlated sources and ultimately, the outlier(s)?
+  
+The graph measures agreement. Independence is not measured.
+How do we measure if one source has been copying another? The system will need to be able to identify similar sources and their connection to the outlier source(es).
