@@ -15,7 +15,7 @@ A claim becomes credible if it is supported by credible sources.
 
 Without external ground truth, we often rely on agreement between sources as evidence of truth.
 
-However, agreement is only meaningful if the sources are independent. If sources copy one another, many agreeing sources may represent only a single observation.
+However, agreement is only evidence if the sources are independent. If sources copy one another, many agreeing sources may represent only a single observation.
 
 Can truth still emerge from graph structure alone?
 
