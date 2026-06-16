@@ -41,9 +41,7 @@ microcenter.com 511 / 690 unique claims (0.7406)
 amazon.com 2526 / 3019 unique claims (0.8367)
 bestbuy.com 4615 / 5276 unique claims (0.8747)
 ```
-
 Every single source that dropped to zero also happened to have a unique ratio of exactly 1.0.
-
 Below is a plot of the unique claim ratio vs. Final credibility of each source:
 
 ![Isolation vs credibility](../images/isolation_vs_credibility.png)
@@ -65,4 +63,5 @@ The four cases that this suggests are:
 - unique falsehood
   
 The graph measures agreement. Independence is not measured.
-How do we measure if one source has been copying another? The system will need to be able to identify similar sources and their connection to the outlier source(es).
+
+How do we measure if one source has been copying another? The system will need to be able to identify similar sources and their connection to the outlier sources.
