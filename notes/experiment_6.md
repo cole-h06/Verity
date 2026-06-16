@@ -63,6 +63,6 @@ The four cases that this suggests are:
 - unique truth
 - unique falsehood
   
-The graph measures agreement. Independence is not measured.
+The graph measures agreement. Independence is not measured yet.
 
 How do we measure if one source has been copying another? The system will need to be able to identify similar sources and their connection to the outlier sources.
