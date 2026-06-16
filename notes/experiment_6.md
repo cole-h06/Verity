@@ -33,14 +33,15 @@ macys.com       23 / 23 unique claims   (1.0000)
 cosori.com      12 / 12 unique claims   (1.0000)
 dell.com        12 / 12 unique claims   (1.0000)
 bjs.com         10 / 10 unique claims   (1.0000)
-
+```
 Meanwhile:
-
+```
 ninjakitchen.com   14 / 25 unique claims    (0.5600)
 jbl.com            28 / 42 unique claims    (0.6667)
 microcenter.com   511 / 690 unique claims   (0.7406)
 amazon.com       2526 / 3019 unique claims  (0.8367)
 bestbuy.com      4615 / 5276 unique claims  (0.8747)
+```
 
 Every source that collapsed to zero had a unique ratio of exactly 1.0.
 
