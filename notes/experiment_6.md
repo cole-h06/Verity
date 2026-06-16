@@ -49,6 +49,17 @@ Below is a plot of the unique claim ratio vs. Final credibility of each source:
 
 The relation isn't quite linear, there's still a decent amount of sources that get high unique ratios but still good credibility. However, every source with a unique ratio of exactly 1.0 was dropped to zero.
 
+I also calculated correlation of unique claim ratio and final credibility:
+
+correlation = -0.1154
+
+I thought it would be stronger than this.
+So the relationship isn't just:
+more unique claims => lower credibility
+
+It may be that the really weird point is the limit. Sources with high unique ratios but who are not fully disconnected can still maintain credibility by sticking close to the graph. However if the unique ratio is exactly 1.0 it seems to die.
+It looks like it is isolation that really matters, not the unique ratio in itself.
+
 Why?
 
 It seems that without any other source to vouch for it (on this graph, at least) unsupported claims can't seem to climb back up.
