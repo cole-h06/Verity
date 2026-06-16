@@ -13,7 +13,7 @@ I noticed something strange after looking at the final source rankings - several
 - bjs.com
 
 I suspected a bug is present in the propagation algorithm because zero is a bit random.
-However after computing claim support after the graph, a pattern became visible.
+Though, after computing claim support across the graph, a pattern became visible.
 
 For each source, I computed:
 
