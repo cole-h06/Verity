@@ -26,7 +26,7 @@ walmart.com      -> cpu_cores = 2
 
 Files:
 
-* `product.csv` — product metadata
-* `claims.csv` — canonical claims
-* `source_claims.csv` — source-specific assertions
-* `assertions.csv` — bipartite graph edges
+* `product.csv` - product metadata
+* `claims.csv` - canonical claims
+* `source_claims.csv` - source-specific assertions
+* `assertions.csv` - bipartite graph edges
