@@ -32,7 +32,7 @@ The goal was to directly simulate the verifier interpretation of the system:
 source -> claim -> source
 ```
 
-rather than relying on fixed-point propagation alone.
+instead of relying on fixed-point propagation alone.
 
 Toy graph:
 
