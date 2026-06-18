@@ -124,9 +124,7 @@ A source whose claims are entirely unique becomes disconnected from the rest of 
 
 The verifier can no longer travel between that source and the larger network.
 
-The current system therefore appears to measure: connectedness rather than:
-
-truth.
+The current system therefore appears to measure connectedness rather than truth.
 
 This raises another important point.
 
