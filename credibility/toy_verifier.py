@@ -1,5 +1,3 @@
-# v5.py
-
 import random
 
 from collections import defaultdict
