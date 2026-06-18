@@ -24,7 +24,7 @@ Both would produce two unique claim nodes for "screen_brightness" for that produ
 Therefore, we redefined claims as:
 
 ```text
-claim = (productid, canonicalattribute)
+claim = (product_id, canonical_attribute)
 ```
 
 while source-specific values remained stored in `source_claims`.
