@@ -128,7 +128,7 @@ The current system therefore appears to measure connectedness rather than truth.
 
 This raises another important point.
 
-It is important to realize that isolated claims don't mean incorrect ones, just as a widely shared claim does not mean it is correct.
+It is important to realize that isolated claims do not mean incorrect ones, just as a widely shared claim does not mean it is correct.
 
 Our graph only captures whether or not information connects to other information.
 
