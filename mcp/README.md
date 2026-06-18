@@ -7,14 +7,14 @@ In a redefining technological era of AI systems increasingly generating and cons
 Verity exposes an experimental MCP server that allows AI agents
 to query source credibility and claim support.
 
-The current implementation uses product specifications as a
-real-world benchmark, but the interface itself is domain agnostic.
+The current implementation focuses on e-commerce product specifications as a
+real-world testing ground but the interface itself is domain agnostic.
 
 Current dataset:
 e-commerce product specifications.
 
 Long-term goal:
-domain-agnostic source credibility infrastructure for AI systems.
+build trust infrastructure for how AI systems evaluate information.
 
 Example tools:
 
