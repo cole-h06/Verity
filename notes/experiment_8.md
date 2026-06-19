@@ -192,7 +192,7 @@ This seems like the explanation for Experiment 6 then - it appears to be a conse
 
 It is important to realize, however, that isolated claims don't mean incorrect ones, just as a widely shared claim does not mean it is correct.
 
-Our graph only captures whether or not information connects to other information.
+The graph only captures whether or not information connects to other information.
 
 It does not yet distinguish between shared truths, shared falsehoods, isolated truths, or isolated falsehoods.
 
