@@ -32,7 +32,7 @@ The goal was to directly simulate the verifier interpretation of the system:
 source -> claim -> source
 ```
 
-instead of relying on fixed-point propagation alone.
+rather than relying on fixed-point propagation alone.
 
 Toy graph:
 
@@ -124,11 +124,83 @@ A source whose claims are entirely unique becomes disconnected from the rest of 
 
 The verifier can no longer travel between that source and the larger network.
 
-The current system therefore appears to measure connectedness rather than truth.
+The current system therefore appears to measure:
 
-This raises another important point.
+```text
+connectedness
+```
 
-It is important to realize that isolated claims do not mean incorrect ones, just as a widely shared claim does not mean it is correct.
+rather than:
+
+```text
+truth
+```
+
+# Real Graph Validation
+
+To determine whether the toy graph behavior existed in the actual Verity graph, I repeated the verifier simulation using the assertion graph directly.
+
+The verifier once again cycles:
+
+```text
+source -> claim -> source
+```
+
+choosing a random outbound edge each time.
+
+I simulated 1,000,000 verifier steps.
+
+Starting from bestbuy.com:
+
+```text
+unique sources visited: 17
+
+bestbuy.com 38.99%
+
+amazon.com 21.39%
+
+target.com 13.64%
+
+...
+```
+
+The verifier was able to traverse through large sections of the graph and revisited many different sources repeatedly.
+
+I then re-ran the simulation starting with hp.com:
+
+```text
+unique sources visited: 1
+
+hp.com 100.00%
+```
+
+After 1,000,000 steps the verifier never left hp.com.
+
+I also tried lenovo.com:
+
+```text
+unique sources visited: 1
+
+lenovo.com 100.00%
+```
+
+The verifier again never left the starting source.
+
+It appears the behavior is the same and matches the toy graph almost exactly.
+
+The Verifier is not penalizing HP and Lenovo specifically.
+
+They are simply at a disconnected position within the graph.
+
+The Verifier only has information about how to navigate the graph structure.
+
+It is not aware of what is a manufacturer, retailer, government source, product category, etc.
+
+The result will be the same from anywhere within any such isolated component. It only observes graph structure.
+
+This seems like the explanation for Experiment 6 then. It appears to be a consequence of graph topology, not explicit judgment about a source's quality.
+
+It is important to realize, however, that isolated claims don't mean incorrect ones, just as a widely shared claim does not mean it is correct.
 
 Our graph only captures whether or not information connects to other information.
 
