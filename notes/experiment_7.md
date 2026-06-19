@@ -57,7 +57,7 @@ value_numeric
 unit
 ```
 
-I've basically moved claims up to be product attributes, and sources have now begun to make potentially contradictory value assertions about these product attributes.
+I've basically moved claims up to be product attributes, and sources have now begun to make potentially contradictory assertions about these product attributes.
 
 Previous claim support distribution:
 
