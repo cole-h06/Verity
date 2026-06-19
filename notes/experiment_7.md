@@ -31,7 +31,14 @@ while source-specific values remained stored in `source_claims`.
 
 This migration also changes what a claim represents.
 
-Under the previous schema, agreement was encoded directly into the graph because sources asserting identical values connected to the same claim node.
+More importantly, it changes what the graph means.
+
+In Experiment 6, agreement means that two sources are saying that two attributes have the same value. Under the new system, however, agreement means that two sources are talking about the same attribute of a product, even if the value is different between the two sources. Consider this example:
+
+Amazon: screen_brightness = 300 nits
+Best Buy: screen_brightness = 250 nits
+
+Under the previous schema, these would have become two claim nodes. 
 
 Under the new schema, a claim represents a product attribute regardless of the asserted value. Sources now connect through a shared claim even when they disagree. Agreement and disagreement remain stored in `source_claims` and are not yet incorporated into credibility propagation.
 
