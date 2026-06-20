@@ -69,7 +69,7 @@ Agreement clearly exists in the graph - it’s not an edge case.
 
 ## Agreement Weighted Propagation
 
-We adapted the propagation algorithm such that the credibility score a claim lends back to the graph (claim support) is now a sum:
+We adapted the propagation algorithm such that claim support is now a sum:
 
 ```text
 claim_support =
