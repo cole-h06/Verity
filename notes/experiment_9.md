@@ -65,7 +65,7 @@ partial agreement claims: 8880
 total claims: 10623
 ```
 
-Agreement signals are clearly present throughout the graph and frequently enough to influence propagation if the graph structure allows it
+Agreement signals are clearly present throughout the graph and frequently enough to influence propagation if the graph structure allows it.
 
 ## Agreement Weighted Propagation
 
@@ -133,9 +133,9 @@ bhphotovideo.com  0.0836
 
 ## Observation
 
-We confirmed that agreement exists within the graph, but the introduction of agreement-weighted propagation only altered the output credibility very slightly.
+Despite the presence of agreement signals throughout the graph, agreement-weighted propagation only altered the output credibility very slightly.
 
-This implies that the graph structure / connectivity is still the primary driver of credibility at the moment.
+This implies that the graph structure/connectivity is still the primary driver of credibility at the moment.
 
 This isn’t surprising given how biased the current graph’s structure is:
 
@@ -146,8 +146,4 @@ These connectivity patterns appear to dominate the effect of agreement weighting
 
 ## Conclusion
 
-While Experiment 8 established that connectivity plays a key role in credibility, our Experiment 9 results show that alone, agreement is not a strong enough signal in our current graph structure to overwhelm the importance of connectivity.
-
-Although agreement is incorporated into the calculation, it is secondary to graph structure, largely because so few claims are supported by multiple overlapping sources in our current sparse dataset.
-
-This could mean that the current verifier is still primarily a connectivity verifier rather than an agreement verifier. It’s possible that on a more densely populated, argument-rich graph, the agreement mechanism would show more influence. I'd say that’s the next big question for the verifier.
+This is likely a consequence of the graph's sparsity, where relatively few claims receive support from multiple overlapping sources. This suggests the current verifier is still primarily a connectivity verifier rather than an agreement verifier. Whether agreement becomes a stronger signal on a denser, more argument-rich graph remains the next major question for the verifier.
