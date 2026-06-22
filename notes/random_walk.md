@@ -41,6 +41,6 @@ $$
 
 where claims reinforce sources and sources reinforce claims.
 
-A problem with this though is the walk can get trapped (e.g., "Claim Echo Loops" where two or more sources copy each other's claims) or hit dead ends (e.g., a claim appears on a single obscure source).
+A problem with this though is the walk can get trapped (e.g., "Claim Echo Loops" where sources copy each other's claims) or hit dead ends (e.g., a claim appears on a single obscure source).
 
 It is also important to note that agreement clearly does not imply independence. As said before, many sources are all copying, or, "scraping" the same misleading upstream information which results in the graph appearing highly confident despite a lack of independent verification.
