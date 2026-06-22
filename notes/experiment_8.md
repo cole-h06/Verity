@@ -1,4 +1,4 @@
-# Experiment 8 - Connectivity vs Credibility
+# Experiment 7 - Connectivity vs Credibility
 
 Date: June 18, 2026
 
