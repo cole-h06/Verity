@@ -66,8 +66,8 @@ def load_claims():
 #
 # (product_id, attribute)
 #
-# This is the architecture currently
-# being explored for Verity.
+# This is the architecture we are
+# currently exploring for Verity.
 #
 # Sources discussing the same product
 # attribute land in the same bucket even if
