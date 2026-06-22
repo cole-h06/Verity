@@ -33,6 +33,24 @@ One way you can think of it is a verifier traveling through the network at rando
 
 The current implementation focuses on product specifications as initial training data. However, the underlying framework is not specific to e-commerce. Any domain involving sources, claims, and disagreement can potentially be modeled using the same graph structure.
 
+# Content-Blind Core 
+
+Verity does not interpret the strings or meaning of claims.
+
+Instead, the engine operates purely on the graph stucture, receiving source identifiers, claim identifiers, and the assertion relationships between them. This means the claim data has already been parsed, normalized, deduplicated, canonicalized, and otherwise pre-processed prior to being input to the graph. 
+
+For example, a client application may determine that:
+
+```text
+Bluetooth 5.3
+BT5.3
+Version 5.3
+```
+
+all represent the same underlying claim.
+
+It only sees that multiple sources asserted the same claim identifier and computes credibility from the resulting network structure.
+
 # Stack
 
 - Python
