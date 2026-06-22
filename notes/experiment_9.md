@@ -45,4 +45,4 @@ The sources attached to the fully agreed claim dominated the graph, whereas the 
 
 ## Conclusion
 
-This shows that the agreement mechanism can significantly contribute to overall credibility and the effects witnessed in Experiment 9 were almost certainly due to graph sparseness.
+This shows that the agreement mechanism can significantly contribute to overall credibility and the effects witnessed in Experiment 8 were almost certainly due to graph sparseness.
