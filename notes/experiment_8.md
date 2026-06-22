@@ -2,7 +2,7 @@
 
 Date: June 20, 2026
 
-The verifier in Experiment 8 was a function of connectivity.
+The verifier in Experiment 7 was a function of connectivity.
 
 Disconnected components naturally collapsed to zero because they had no structural path back into the main graph.
 
