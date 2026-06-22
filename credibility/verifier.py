@@ -122,7 +122,7 @@ def run_verifier(
     return visits
 
 
-# show the most visited
+# display the most visited
 # sources
 def print_top_sources(
     visits,
