@@ -1,199 +1,106 @@
-# Experiment 7 - Connectivity vs Credibility
+# Experiment 7 - Canonical Claim Migration
 
-Date: June 18, 2026
+Date: June 17, 2026
 
-In Experiment 6, I noted that multiple sources collapsed to zero credibility.
+With Experiment 6, I found that nearly all (92%) of the claims were supported by a single source, indicating that claims may have been too specific, creating an overly sparse graph.
 
-Examples included:
-
-```text
-lenovo.com
-hp.com
-dell.com
-pcrichard.com
-bjs.com
-```
-
-All sources with this behavior shared the same property:
+The previous definition of claim was:
 
 ```text
-unique_ratio = 1.0
+claim = (product_id, attribute, value)
 ```
 
-Every claim they asserted was supported by only a single source.
+With this definition, sources asserting different values for the same product attribute generated separate claim nodes.
 
-At that time I speculated that the graph propagation was somehow penalizing isolated claims, although it was not clear to me how. The mechanism was unclear.
-
-I wanted to better understand this effect, so I moved away from the full database and constructed a minimal toy graph:
-
-The goal was to directly simulate the verifier interpretation of the system:
+For example:
 
 ```text
-source -> claim -> source
+Amazon: screen_brightness = 300 nits
+Best Buy: screen_brightness = 250 nits
 ```
 
-instead of relying on fixed-point propagation alone.
+Both would produce two unique claim nodes for "screen_brightness" for that product, despite relating to the same product attribute.
 
-Toy graph:
+Therefore, we redefined claims as:
 
 ```text
-A -- C1 -- B
-A -- C2 -- B
-
-D -- C3
-D -- C4
+claim = (productid, canonicalattribute)
 ```
 
-Graph structure:
+while source-specific values remained stored in `source_claims`.
+
+This migration also changes what a claim represents.
+
+Under the previous schema, agreement was encoded directly into the graph because sources asserting identical values connected to the same claim node.
+
+Under the new schema, a claim represents a product attribute regardless of the asserted value. Sources now connect through a shared claim even when they disagree. Agreement and disagreement remain stored in `source_claims` and are not yet incorporated into credibility propagation.
+
+Current schema:
+
+claims
 
 ```text
-Source A supports claims C1 and C2.
-
-Source B supports claims C1 and C2.
-
-Source D supports claims C3 and C4.
-
-Claims C3 and C4 are only supported by D.
+claim_id
+product_id
+attribute
 ```
 
-Notice that there are two connected components.
-
-Component 1
+source_claims
 
 ```text
-A -- C1 -- B
-A -- C2 -- B
+source_id
+product_id
+claim_id
+canonical_attribute
+value_string
+value_numeric
+unit
 ```
 
-Component 2
+I've basically moved claims up to be product attributes, and sources have now begun to make potentially contradictory value assertions about these product attributes.
+
+Previous claim support distribution:
 
 ```text
-D -- C3
-D -- C4
+1 source -> 11,855 claims
+2 sources -> 724 claims
+3 sources -> 165 claims
+4 sources -> 32 claims
+5 sources -> 6 claims
+6 sources -> 1 claim
 ```
 
-A verifier repeatedly performs:
+Approximately 92% of claims were supported by a single source.
+
+This now shifts to:
 
 ```text
-source -> claim -> source
+1 source -> 8,030 claims
+2 sources -> 1,822 claims
+3 sources -> 575 claims
+4 sources -> 163 claims
+5 sources -> 32 claims
+6 sources -> 8 claims
 ```
 
-choosing a random outgoing edge at each step.
+Single source claims went down from about 92% of all claims to about 75.5% and multi source claims increased as much as ~152% for two source claims, ~248% for three source claims, and ~409% for four source claims.
 
-I simulated 100,000 rounds, starting the verifier in each connected component.
+It was an unexpected, but welcomed change to dramatically reduce the graph sparsity simply by moving claims to represent a product attribute, rather than a product attribute and its corresponding value.
 
-Starting from A:
+The new graph has 24 sources and 10,629 claims.
 
-```text
-A = 50.01%
-B = 49.99%
-```
+This yielded 14,255 source-claims, and a propagation from source to claim and back, similar to what we had previously, but on the source to attribute pair.
 
-Starting from D:
+Here, the propagation from source to claim and back (source -> claim -> source) reaches a fixed point within 36 iterations if we initialize each claim to be 1/24.
 
-```text
-D = 100.00%
-```
+With random initialization, it took only a few more iterations to reach convergence.
 
-Now it should be clear.
+The two fixed points are not too far apart (1.918e-9 apart) so the initialization choice should not matter too much in relation to the other variables used.
 
-When the verifier begins inside the connected component containing A and B, it randomly goes between the two nodes:
+The sources and their relative importance were similar, with bestbuy.com still dominating, but several sources which previously held value are no longer there (hp.com, dell.com, bjs.com, lenovo.com).
 
-```text
-A -> C1 -> B
-B -> C2 -> A
-```
+The propagation remains recursive, with source credibility influencing claim credibility and claim credibility influencing source credibility. The system continues to converge to a stable fixed point under multiple initializations within the graph and still is more about how the source has supported many similar claims and what claims are supported by multiple sources.
 
-and so on...
+I haven't yet incorporated any level of agreement/disagreement within sources or claims, only simply reinforcement of which source supported which claim.
 
-However, when the verifier begins at D:
-
-```text
-D -> C3 -> D
-D -> C4 -> D
-```
-
-the verifier never escapes.
-
-The verifier simply can't escape from the component.
-
-So it seems the collapse in Exp 6 is not caused by a source being false.
-To me, it seems to be a consequence of graph connectivity.
-
-A source whose claims are entirely unique becomes disconnected from the rest of the graph.
-
-The verifier can no longer travel between that source and the larger network.
-
-The current system therefore appears to measure connectedness, not truth.
-
-# Real Graph Validation
-
-To determine whether the toy graph behavior exists in the actual Verity graph, I repeated the verifier simulation using the assertion graph directly.
-
-The verifier once again cycles:
-
-```text
-source -> claim -> source
-```
-
-choosing a random outbound edge each time.
-
-I simulated 1,000,000 verifier steps.
-
-Starting from bestbuy.com:
-
-```text
-unique sources visited: 17
-
-bestbuy.com 38.99%
-
-amazon.com 21.39%
-
-target.com 13.64%
-
-...
-```
-
-The verifier was able to traverse through large sections of the graph and revisited many different sources repeatedly.
-
-I then re-ran the simulation starting with hp.com:
-
-```text
-unique sources visited: 1
-
-hp.com 100.00%
-```
-
-After 1,000,000 steps the verifier never left hp.com.
-
-I also tried lenovo.com:
-
-```text
-unique sources visited: 1
-
-lenovo.com 100.00%
-```
-
-The verifier again never left the starting source.
-
-It appears the behavior is the same and matches the toy graph almost exactly.
-
-It is important to note that the verifier is not penalizing HP and Lenovo specifically.
-
-They are simply at a disconnected position within the graph.
-
-The verifier only has information about how to navigate the graph structure.
-
-It is not aware of what is a manufacturer, retailer, government source, product category, etc.
-
-The result will be the same from anywhere within any such isolated component as it only observes graph structure.
-
-This seems like the explanation for Experiment 6 then - it appears to be a consequence of graph topology, not explicit judgment about a source's quality itself.
-
-An isolated claim does not mean it is an incorrect one, just as a widely shared claim does not mean it is correct.
-
-The graph only captures whether or not information connects to other information.
-
-It does not yet distinguish between shared truths, shared falsehoods, isolated truths, or isolated falsehoods.
-
-Thus the question for my next experiment is not whether or not sources connect to other sources but whether those sources connect together in the way they have to to show consensus (or in this case, agreement on value) which is something the current system does not measure.
+The graph, therefore, still does not distinguish between a source supporting a claim of, say, 200 nits and another source supporting the same claim with 300 nits.
