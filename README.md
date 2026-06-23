@@ -64,8 +64,8 @@ It only sees that multiple sources asserted the same claim identifier and comput
 ## Dataset
 
 - 24 sources
-- 2,976 source claims
-- 1,662 canonical claims
+- 2,976 source claims (individual assertions collected from sources)
+- 1,662 canonical claims (normalized claim nodes used in graph experiments)
 
 ## Recent Progress
 
