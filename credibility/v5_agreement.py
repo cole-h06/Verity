@@ -7,7 +7,10 @@ from collections import Counter
 from collections import defaultdict
 
 from canonical_graph import (
-    GRAPH_ATTRIBUTES,
+    GRAPH_ATTRIBUTES
+)
+
+from normalization import (
     canonicalize
 )
 
@@ -62,7 +65,8 @@ def load_claims():
     return rows
 
 
-# We group assertions by: (product_id, attribute)
+# We group source claims by: 
+# (product_id, attribute)
 #
 # This is the architecture currently
 # being explored for Verity
@@ -80,7 +84,7 @@ def load_claims():
 # Best Buy   -> 5.3
 # Target     -> 5.2
 #
-# All three assertions belong to the same
+# All three source claims belong to the same
 # property group
 def build_property_groups(rows):
 
@@ -143,7 +147,7 @@ def build_property_groups(rows):
 #
 # largest agreeing group
 # ----------------------
-# total assertions
+# total source claims
 #
 # Examples:
 #
