@@ -41,6 +41,11 @@ GRAPH_ATTRIBUTES = {
 }
 
 
+# We assign every unique claim a stable hash
+#
+# Sources that assert the same
+# (product, attribute, value)
+# end up pointing to the same claim
 def build_hash(
     product_id,
     attribute,
@@ -106,8 +111,10 @@ def load_claims():
 
     return rows
 
-
-def build_future_graph(rows):
+# Turn normalized source assertions
+# into claim nodes and source -> claim
+# connections
+def build_graph(rows):
 
     claim_to_sources = defaultdict(set)
 
@@ -174,8 +181,9 @@ def build_future_graph(rows):
         skipped_examples
     )
 
-
-def support_distribution(
+# Count how many sources support
+# each claim
+def support_breakdown(
     claim_to_sources
 ):
 
@@ -193,8 +201,10 @@ def support_distribution(
 
     return distribution
 
-
-def source_isolation_stats(
+# Measure how much of each source's
+# information overlaps with other
+# sources in the graph
+def source_overlap(
     claim_to_sources
 ):
 
@@ -248,7 +258,7 @@ def source_isolation_stats(
     )
 
     print()
-    print("source isolation")
+    print("source overlap")
     print("----------------")
 
     for (
@@ -283,7 +293,7 @@ def source_isolation_stats(
         )
 
 
-def print_distribution(
+def print_support(
     distribution
 ):
 
@@ -301,7 +311,7 @@ def print_distribution(
         )
 
 
-def print_skipped(
+def print_skipped_claims(
     skipped
 ):
 
@@ -328,7 +338,8 @@ def print_skipped(
             f"{count}"
         )
 
-
+# Show examples that could not be
+# normalized into graph claims
 def print_skipped_examples(
     skipped_examples
 ):
@@ -365,33 +376,33 @@ def main():
     rows = load_claims()
 
     print()
-    print("building future graph...")
+    print("building graph...")
 
     (
         graph,
         skipped,
         skipped_examples
-    ) = build_future_graph(
+    ) = build_graph(
         rows
     )
 
     print(f"claims: {len(graph)}")
 
     distribution = (
-        support_distribution(
+        support_breakdown(
             graph
         )
     )
 
-    print_distribution(
+    print_support(
         distribution
     )
 
-    source_isolation_stats(
+    source_overlap(
         graph
     )
 
-    print_skipped(
+    print_skipped_claims(
         skipped
     )
 
