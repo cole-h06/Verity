@@ -75,7 +75,7 @@ agreement = 0.67
 agreement = 0.33
 ```
 
-Presently, agreement is still source-independent - all sources contribute equally.
+Presently, agreement is still source-independent - all sources contribute equally regardless of their credibility.
 
 Example
 
@@ -110,9 +110,7 @@ target.com       -> claim_1166
 walmart.com      -> claim_1166
 ```
 
-Each source is now linked to the same canonical property despite disagreeing on the value claims.
-
-Each source is now linked to the same canonical property, despite their differing value claims.
+Each source is now linked to the same canonical property, despite disagreeing on the value.
 
 ## Observations
 
@@ -151,4 +149,4 @@ Possible directions include:
 * separating competing value clusters
 * modeling source dependence and copying
 
-This is still an open research question I am exploring.
+How agreement and disagreement should influence credibility remains an open question.
