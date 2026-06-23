@@ -19,13 +19,13 @@ DB = os.path.join(
 )
 
 
-# Pull the subset of source assertions that
+# Pull the subset of source claims that
 # participate in the Verity graph
 #
 # We intentionally reuse the same attributes
 # and canonicalization pipeline as
-# simulate_graph.py
-# That way we have both experiments operating 
+# canonical_graph.py
+# This way, we have both experiments operating 
 # on identical data
 def load_claims():
 
