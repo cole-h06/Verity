@@ -236,7 +236,7 @@ def print_summary(
 
 # Bucket agreement scores into broad ranges
 # so we can see whether the graph tends
-# toward consensus or disagreement overall.
+# toward consensus or disagreement overall
 def agreement_distribution(results):
 
     buckets = defaultdict(int)
