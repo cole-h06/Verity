@@ -70,10 +70,10 @@ It only sees that multiple sources asserted the same claim identifier and comput
 ## Recent Progress
 
 - Built the first canonical claim graph
-- Developed a normalization pipeline for graph construction
+- Built a preprocessing pipeline for graph experiments
 - Measured source overlap across the graph
 - Measured agreement and disagreement between sources
-- Reduced claim fragmentation through canonicalization
+- Reduced claim fragmentation in the experimental dataset
 - Identified isolated sources and sparsity issues
 - Established a repeatable graph-building pipeline for experiments
 
