@@ -1,4 +1,4 @@
-# Example of Conflicting Core Values of a CPU
+# CPU Core Disagreement Example
 
 The following demonstrates an example of conflicting source assertions for the same product attribute.
 
