@@ -50,7 +50,7 @@ The assertions were grouped by:
 (product_id, attribute)
 ```
 
-For each group:
+After excluding ambiguous source claims, each group was scored as:
 
 ```text
 largest agreeing value group
