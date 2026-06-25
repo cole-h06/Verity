@@ -77,10 +77,10 @@ The agreement-weighting model caused measurable changes in the final rankings, b
 
 These changes were expected given the current state of the dataset. Agreement weights are currently computed only for attributes that support deterministic canonicalization, limiting the proportion of the graph that participates in weighted propagation.
 
-Going forward, with further attribute normalization, I expect a larger portion of the graph will receive agreement weights, thereby allowing future experiments to evaluate their influence across a broader range of product properties.
+Going forward, with further attribute normalization, I expect a larger portion of the graph will receive agreement weights, thereby allowing future experiments to evaluate their influence across a broader range of attributes.
 
 ## Current Limitations
 
 Agreement weighting can only be applied to attributes with deterministic canonicalization rules.
 
-There are currently many attributes that still contain inconsistent textual representations that we cannot yet normalize automatically. Assertions involving these attributes currently receive the default edge weight and therefore do not contribute agreement information. Future work will expand normalization coverage while keeping the underlying propagation algorithm unchanged.
+There are currently many attributes that still contain inconsistent textual representations that we cannot yet normalize automatically. Assertions involving these attributes currently receive the default edge weight and therefore do not contribute agreement information. Future work will expand normalization coverage while keeping the underlying propagation algorithm stable.
