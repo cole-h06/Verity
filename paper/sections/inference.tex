@@ -1,0 +1,74 @@
+```latex
+\section{Credibility Inference}
+
+The credibility graph defines how sources and claims are connected, but does not, on its own, provide any information about the credibility of either. Next, we describe an iterative inference algorithm that computes the credibility of each source, based on the properties of the network.
+
+In this way, the algorithm keeps iterating between the source nodes and the claim nodes. Sources distribute their credibility among the claims they assert, and then these claims redistribute their accumulated support back to the sources that assert them. Repeating this process causes the source credibility vector to converge toward a stable distribution.
+
+\subsection{Propagation Algorithm}
+
+Propagation consists of four stages that are done at each iteration step. In the first one, source credibility is propagated to the claims they assert. After this stage, in the second one, support for claims is aggregated from all asserting sources. After the aggregation process, the result is propagated back to the source nodes. Finally, the credibility vector is normalized before the next iteration begins. The following subsections describe each stage formally.
+
+\subsection{Claim Support}
+
+For the first stage in each iteration, the support for each claim is computed. In doing so, each of the sources distributes their credibility evenly across all of the claims that it asserts. Hence, sources that assert a lot of claims will have less credibility per claim as compared to the sources that assert fewer claims.
+
+Support for claim $c_j$ is computed as
+
+\[
+c_j =
+\sum_{i \in A(j)}
+\frac{s_i}{d_i},
+\]
+
+where $s_i$ denotes the credibility of source $i$, $d_i$ is the number of claims made by that source, and $A(j)$ is the set of sources asserting claim $j$.
+
+\subsection{Source Update}
+
+The second phase of each iteration is the update of the credibility of each source. This is done using the support from each claim that the source asserts. Because claims can be asserted by multiple sources, the support for each claim is divided evenly amongst all of the sources asserting it. Therefore, a source with highly supported claims will have high credibility.
+
+The new credibility of source $s_i$ is computed as
+
+\begin{equation}
+s_i' =
+\sum_{j \in C(i)}
+\frac{c_j}{a_j},
+\label{eq:source-update}
+\end{equation}
+
+where $c_j$ denotes the support of claim $j$, $a_j$ is the number of sources asserting claim $j$ and $C(i)$ represents the set of claims asserted by source $i$.
+
+\subsection{Normalization}
+
+The resulting credibility vector is normalized at each step before proceeding to the next one in order to keep the credibility of the sources proportional and at the same time not affect the norm of the credibility vector during the subsequent iterations.
+
+The normalization of the credibility of the source $s_i$ can be performed by using the formula:
+
+\begin{equation}
+s_i =
+\frac{s_i'}{\sum_{k} s_k'},
+\label{eq:normalization}
+\end{equation}
+
+in which $s_i'$ is the updated credibility of the source $i$ before normalization.
+
+\subsection{Convergence}
+
+The propagation process is repeated until the source credibility vector converges to a steady-state distribution. At each step, the resulting source credibility vector is compared to the source credibility vector obtained at the previous step. The convergence is achieved if the maximum difference between corresponding source credibility values falls below a predetermined threshold.
+
+The convergence criterion:
+
+\begin{equation}
+\max_i
+\left|
+s_i^{(t+1)}
+-
+s_i^{(t)}
+\right|
+<
+\varepsilon,
+\label{eq:convergence}
+\end{equation}
+
+in which $s_i^{(t)}$ is the credibility of the source $i$ after iteration $t$, and $\varepsilon$ is the convergence threshold value.
+```
