@@ -33,23 +33,31 @@ One way you can think of it is a verifier traveling through the network at rando
 
 # Content-Agnostic Core
 
-Verity does not interpret the strings or meaning of claims. The current implementation uses product specifications as a development dataset because they provide large-scale conflicting information from independent sources. In production, clients supply their own credibility graphs from any domain.
+Verity does not interpret the strings or meaning of claims. The current implementation uses product specifications as a development dataset because they provide large-scale conflicting information from independent sources. In production, clients construct their own credibility graphs from any domain.
 
-Verity operates purely on the graph structure to compute credibility, receiving source identifiers, claim identifiers, and the assertion relationships between them. This means the graph has already been parsed, normalized, deduplicated, canonicalized, and otherwise pre-processed prior to being input to the system. 
+Verity operates purely on the graph structure to compute source credibility, receiving only source identifiers, claim identifiers, and the assertion relationships between them. This means the graph has already been parsed, normalized, deduplicated, canonicalized, and otherwise pre-processed before it is received by Verity.
 
 For example, a client application may determine that:
 
-```text
+Product specifications
+----------------------
 Bluetooth 5.3
-BT5.3
+BT 5.3
 Version 5.3
-```
+
+AI coding agents
+----------------
+Python 3.12
+Python v3.12
+CPython 3.12
+
+Medical knowledge
+-----------------
+Myocardial infarction
+Heart attack
+Acute MI
 
 all represent the same underlying claim.
-
-Verity never sees those strings.
-
-It only sees that multiple sources asserted the same claim identifier and computes credibility from the resulting network structure.
 
 # Stack
 
