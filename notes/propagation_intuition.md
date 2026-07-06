@@ -17,7 +17,7 @@ G = (S, C, E)
 $$
 
 where S is the set of sources, C is the set of claims, and E is the set of
-assertions which link sources to the claims they assert.
+assertions which connect sources to the claims they assert.
 
 One iteration of propagation can be defined as:
 
