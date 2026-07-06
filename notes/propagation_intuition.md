@@ -30,6 +30,4 @@ $$
 
 where claims reinforce sources and sources reinforce claims.
 
-A challenge with iterative propagation, however, is that denser regions of the graph (e.g., "Claim Echo Loops" where sources copy one another) may carry greater influence than less connected regions. Similarly, claims appearing on a single source receive little or no reinforcement.
-
-It is also important to note that agreement clearly does not imply independence. As said before, many sources may be copying the same misleading information. This results in the graph appearing highly confident despite a lack of independent verification.
+A challenge with iterative propagation, however, is that denser regions of the graph may carry greater influence than less connected regions. This becomes problematic if it's due to copied information instead of independent agreement. Many sources may be copying the same misleading information. This results in the graph appearing highly confident despite a lack of independent verification. Similarly, claims appearing on a single source receive little or no reinforcement.
