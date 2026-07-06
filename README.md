@@ -19,7 +19,7 @@ However, agreement is only evidence if the sources are independent. If sources c
 
 # Approach
 
-Sources and claims form a bipartite graph. Each edge represents a source asserting a claim. Verity treats information as an interconnected network rather than a collection of independent observations.
+Sources and claims form a bipartite graph. Each edge represents a source asserting a claim. Verity treats information as an interconnected network instead of a collection of independent observations.
 <p align="center">
   <img src="images/credibility_animation.gif" width="520">
 </p>
@@ -37,7 +37,7 @@ Verity does not interpret the strings or meaning of claims. The current implemen
 
 Verity operates purely on graph structure, receiving only source identifiers, claim identifiers, and the assertion relationships between them. This means the graph has already been parsed, normalized, deduplicated, canonicalized, and otherwise pre-processed before it is ingested by Verity.
 
-For example, a client application may determine that the following values are all equivalent assertions for the same claim:
+For instance, a client application may determine that the following values are all equivalent assertions for the same claim:
 
 ```text
 Product specifications:
