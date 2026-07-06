@@ -4,7 +4,7 @@ A credibility inference system for networks of conflicting claims. Verity models
 
 # Problem
 
-As artificial intelligence systems such as autonomous agents reason, plan, and execute complex tasks across digital environments using information collected from many sources, evaluating and verifying the credibility of information becomes highly important.
+As artificial intelligence systems and autonomous agents reason and execute complex tasks across digital environments using information collected from many sources, evaluating and verifying the credibility of information becomes highly important.
 
 # Core Research Challenge
 
