@@ -1,6 +1,6 @@
 # MCP Interface
 
-Verity is an experimental MCP server that computes source credibility from a graph of sources and claims.
+Verity exposes an experimental MCP server that computes source credibility from a graph of sources and claims.
 
 If Search helped humans find information on the web, AI systems face a different challenge:
 determining which information to trust.
