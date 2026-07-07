@@ -24,15 +24,15 @@ Every claim they asserted was supported by only a single source.
 
 At that time I speculated that the graph propagation was somehow penalizing isolated claims, although it was not clear to me how. The mechanism was unclear.
 
-I wanted to better understand this effect, so I moved away from the full database and constructed a minimal toy graph:
+I wanted to better understand this effect, so I moved away from the full database and constructed a minimal toy graph.
 
-The goal was to directly simulate the verifier interpretation of the system:
+The objective was to gain insights into the reasons that cause isolated components to get minimal credibility support by investigating ways through which information can flow through the graph structure.
+
+To make things easier, as a mental experiment, I considered repeated movement through the graph:
 
 ```text
 source -> claim -> source
 ```
-
-rather than relying on fixed-point propagation alone.
 
 Toy graph:
 
