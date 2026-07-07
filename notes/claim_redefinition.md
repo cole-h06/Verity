@@ -2,32 +2,32 @@
 
 June 17, 2026
 
-I found that nearly all (92%) of the claims were supported by a single source, indicating that claims may have been too specific, creating an overly sparse graph.
+I found that almost all (92%) of the claims had a single source. This likely indicates that the claims may have been too specific and led to an overly sparse graph.
 
-The previous definition of claim was:
+The earlier definition of a claim was:
 
 ```text
 claim = (product_id, attribute, value)
 ```
 
-With this definition, sources asserting different values for the same product attribute generated separate claim nodes.
+Using such a definition, claims asserted by different sources for different values referring to the same product attribute created separate claim nodes.
 
-For example:
+For instance:
 
 ```text
 Amazon: screen_brightness = 300 nits
 Best Buy: screen_brightness = 250 nits
 ```
 
-Both would produce two unique claim nodes for "screen_brightness" for that product, despite relating to the same product attribute.
+Both created two different claim nodes for "screen_brightness" for that product, even when referring to the same product attribute.
 
-Therefore, we redefined claims as:
+Thus, our new definition of a claim was:
 
 ```text
-claim = (productid, canonicalattribute)
+claim = (product_id, canonical_attribute)
 ```
 
-while source-specific values remained stored in `source_claims`.
+while the values were kept in `source_claims`.
 
 This migration also changes what a claim represents.
 
