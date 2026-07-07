@@ -16,6 +16,4 @@ One iteration of propagation can be defined as:
 - claims redistribute accumulated support back to sources
 - repeat until convergence
 
-Some regions of the graph may reinforce themselves more strongly than others.
-
 A challenge with iterative propagation, however, is that denser regions of the graph may carry greater influence than less connected regions. This becomes problematic if it's due to copied information instead of independent agreement. Many sources may be copying the same misleading information, ultimately creating an illusion where the graph appears highly confident despite a lack of independent verification. Similarly, claims appearing on a single source receive little or no reinforcement.
