@@ -1,21 +1,21 @@
 # Project Verity
 
-A credibility inference system for networks of conflicting claims. Verity models the relationship between sources and claims as a graph to estimate the credibility of every source and the confidence of every claim it asserts.
+A credibility inference system for networks of conflicting claims. I am building Verity to see if I could model the relationship between sources and claims as a graph to estimate the credibility of every source and the confidence of every claim it asserts.
 
 # Problem
 
 As artificial intelligence systems and autonomous agents reason and execute complex tasks across digital environments using information collected from many sources, evaluating and verifying the credibility of information becomes highly important.
 
-# Core Research Challenge
+# Research Challenge
 
 Source credibility and claim credibility depend on each other recursively.
 
 A source becomes more credible if it consistently supports true claims.
 A claim becomes more credible if it is supported by credible sources.
 
-Without external ground truth, we often rely on agreement between sources as evidence of truth.
+When an agent scrapes data from 50 different websites, how do we know who to trust?
 
-However, agreement is only evidence if the sources are independent. If sources copy one another, is it really agreement? Or is it just representing a single observation?
+We typically rely on agreement between sources as evidence of truth. But, if Source A and Source B agree, is it really agreement? Or did Source B just scrape and copy its data from Source A?
 
 # Approach
 
