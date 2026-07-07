@@ -62,29 +62,17 @@ Medical knowledge:
 
 - Python
 - PostgreSQL
+  
+## Current Status & Implementation Notes
 
-## Current Status of Verity
-(As of June 22, 2026)
+Verity is an active research project with the goal being to see if source credibility can be inferred solely based on graph structure.
 
-## Dataset
+Currently present in the repository:
 
-- 24 sources
-- 2,976 source claims (individual assertions collected from sources)
-- 1,662 canonical claims (normalized claim nodes used in graph experiments)
+- Credibility propagation algorithm reference implementation
+- Research paper with figures
+- Experimental MCP interface
+- Graph structure example
+- Sketches of initial design
 
-## Recent Progress
-
-- Built the first experimental credibility graph
-- Built a preprocessing pipeline for graph experiments
-- Measured source overlap across the graph
-- Measured agreement and disagreement between sources
-- Reduced claim fragmentation in the experimental dataset
-- Identified isolated sources and sparsity issues
-- Established a repeatable graph-building pipeline for experiments
-
-## Open Questions
-
-- How should agreement affect credibility?
-- How should disagreement affect credibility?
-- How should source copying be handled?
-- How much overlap is enough?
+The current area of research focuses on modeling source dependencies to ensure that copied information contributes less evidence than independent agreement.
