@@ -63,7 +63,7 @@ Medical knowledge:
 - Python
 - PostgreSQL
   
-## Current Status & Implementation Notes
+## Current Status of Verity
 
 Verity is an active research project that aims to investigate whether source credibility can be inferred solely based on graph structure.
 
@@ -76,3 +76,9 @@ Currently present in the repository:
 - Sketches of initial design
 
 Current area of research focuses on modeling source dependencies to ensure that copied information contributes less evidence than independent agreement.
+
+## Implementation
+
+Verity is researching graph-based source credibility inference as the foundation for AI systems that must verify information without assuming ground truth exists.
+
+To do this, the goal is to expose the Verity inference engine through a decentralized, open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io)  server so AI agents can reason about the credibility of information they consume directly as part of their reasoning process.
