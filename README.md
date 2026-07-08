@@ -1,6 +1,6 @@
 # Project Verity
 
-A credibility inference system for networks of conflicting claims. I am building Verity to see if the relationship between sources and claims can be modeled as a graph to estimate the credibility of every source and the confidence of every claim it asserts.
+A credibility inference system for networks of conflicting claims. I'm building Verity to see if the relationship between sources and claims can be modeled as a graph to estimate the credibility of every source and the confidence of every claim it asserts.
 
 # Problem
 
