@@ -28,11 +28,11 @@ Sources and claims form a bipartite graph. Each edge represents a source asserti
   <em>An animation of credibility propagation running on a small network of sources and claims. Node size represents inferred credibility, while edges represent assertions.</em>
 </p>
 
-Credibility is computed iteratively across the graph. At each iteration step, each source distributes its credibility across all claims it asserts, and each claim in turn redistributes its support it has accumulated back to the asserting sources. The iterations repeat until the credibility vector reaches a fixed point. Agreement weighting influences how much support each assertion contributes.
+Credibility is computed iteratively across the graph. At each iteration step, each source distributes its credibility across all claims it asserts, and each claim in turn redistributes the support it has accumulated back to the asserting sources. The iterations repeat until the credibility vector reaches a fixed point. Agreement weighting influences how much support each assertion contributes.
 
 # Content-Agnostic Core
 
-Verity does not interpret a claim's content. The current implementation uses product specifications as a development dataset because they provide large-scale conflicting information from  independent sources. In production, clients construct their own credibility graphs from any domain.
+Verity does not interpret a claim's content. The current implementation uses product specifications as a development dataset because they provide large-scale conflicting information from independent sources. In production, clients construct their own credibility graphs from any domain.
 
 Verity operates purely on graph structure and receives only source identifiers, claim identifiers, and the assertion relationships between them. This means the graph has already been parsed, normalized, deduplicated, canonicalized, and otherwise pre-processed before it is ingested by Verity.
 
@@ -75,7 +75,7 @@ Currently present in the repository:
 - Graph structure example
 - Sketches of initial design
 
-Current area of research focuses on modeling source dependencies to ensure that copied information contributes less evidence than independent agreement.
+Current research focuses on modeling source dependencies to ensure that copied information contributes less evidence than independent agreement.
 
 ## AI Integration
 
