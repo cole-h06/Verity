@@ -36,7 +36,7 @@ Source B:
 
 {1, 2, 3, 4, 5}
 
-Expected outcome:
+What should we expect?
 
 - The two sources appear structurally identical.
 - A dependency likely exists.
@@ -56,9 +56,9 @@ Source B:
 
 {1, 2, 3}
 
-Expected outcome:
+What should we expect?
 
-- All of Source B's assertions have been made by Source A too.
+- All of Source B's assertions have been made by Source A as well.
 - Source B is a proper subset of Source A.
 - Source A only partially explains Source B in the reverse order.
 - This is why directional asymmetry occurs and supports the hypothesis.
@@ -73,11 +73,11 @@ Source B:
 
 {2, 4, 6, 8}
 
-Expected outcome:
+What should we expect?
 
 - There is agreement present between the two independent sources on some claims.
 - The hypothesis cannot conclude a dependency relationship that does not exist.
-- Graph alone may or may not distinguish this case; it is yet to be determined.
+- Graph alone may or may not distinguish this case; this has yet to be determined through testing.
 
 ### Case 4: Common Upstream Source
 
@@ -93,14 +93,14 @@ Source B:
 
 {1, 2, 4}
 
-Expected outcome:
+What should we expect?
 
 - Information on both sources roots from a common upstream source.
 - None of the sources depend on each other.
 - In cases where Source C is not in the graph, this scenario cannot be distinguished from copying.
 - This is one of the limitations of a graph-based method.
 
-## Current Research Questions
+## Open Questions
 
 - How is this best modeled mathematically / what concept fits best?
 - Is there a way or method to figure out the dependencies purely based on graph structure?
