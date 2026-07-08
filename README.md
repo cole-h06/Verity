@@ -34,7 +34,7 @@ Credibility is computed iteratively across the graph. At each iteration step, ea
 
 Verity does not interpret a claim's content. The current implementation uses product specifications as a development dataset because they provide large-scale conflicting information from independent sources. In production, clients construct their own credibility graphs from any domain.
 
-Verity operates purely on graph structure and receives only source identifiers, claim identifiers, and the assertion relationships between them. This means graphs have already been parsed, normalized, deduplicated, canonicalized, and otherwise pre-processed before it is ingested by Verity.
+Verity operates purely on graph structure and receives only source identifiers, claim identifiers, and the assertion relationships between them. This means graphs have already been parsed, normalized, deduplicated, canonicalized, and otherwise pre-processed before they are ingested by Verity.
 
 For instance, a client application could identify the following as equivalent assertions of one claim:
 
