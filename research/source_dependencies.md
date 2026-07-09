@@ -8,7 +8,7 @@ Alternatively, the same claim may be asserted by two dependent sources based on 
 
 From the perspective of a credibility propagation algorithm, these two instances appear identical despite the different evidence.
 
-As a consequence, a large number of dependent sources can create an illusion of high consensus despite a lack of independent evidence. In contrast, a small number of independent sources can be worth more than a large number of sources with copied information.
+As a consequence, a large number of dependent sources can create an illusion of high consensus despite a lack of independent evidence. In contrast, a small number of independent sources can contribute greater evidence than a large number of sources with copied information.
 
 ## Research Question
 
