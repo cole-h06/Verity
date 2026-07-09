@@ -140,13 +140,6 @@ A perfect copy cannot be distinguished from a hidden common parent source, and v
 
 The next step is to figure out whether directional inclusion will continue as a stand-alone measure or becomes part of a dependency model.
 
-### What I found
-
-Quite a few top-ranked pairs looked reasonable at first glance.
-
-For instance, there was a large amount of Best Buy's assertions included in Target while the opposite was the case only to a much lesser degree.
-
-
 
 ## Current Research Questions
 
