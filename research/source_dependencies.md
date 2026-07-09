@@ -130,7 +130,7 @@ In looking at the source pairs, we found that disagreement was usually a conflic
 
 This indicates that directional inclusion is more than just agreement. It also accounts for the extent to which one source’s information is structurally included in another’s.
 
-### Current Thoughts
+### Observations
 
 Directional inclusion asymmetry seems to provide a structural signal that can be helpful in identifying source dependencies.
 
