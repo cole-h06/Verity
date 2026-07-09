@@ -100,6 +100,54 @@ Expected outcome:
 - In cases where Source C is not in the graph, this scenario cannot be distinguished from copying.
 - This is one of the limitations of a graph-based method.
 
+## Directional Inclusion Asymmetry (Experiment 1)
+
+One of the things I wanted to see right away was if direction inclusion itself contains any structural signal without parameters.
+
+To do that, I constructed for each source the set of assertions:
+
+(product, attribute, value)
+
+and measured between all pairs of sources:
+
+- matching assertions
+- conflicting assertions
+- directional inclusion
+- agreement ratio
+- asymmetry
+
+After computing the top-ranked pairs, I wrote an inspection tool to manually compare all matching and conflicting assertions between the two sources.
+
+In addition, it became clear after analyzing the shared assertions that the disagreements were not random, but rather, were conflicting specifications for the same product.
+
+A number of high-ranking source pairs quickly seemed to make sense. ### Results
+
+A number of high-ranking source pairs quickly seemed to make sense.
+
+For instance, there was a higher percentage of claims made by Target that were included in Best Buy than vice versa.
+
+In looking at the source pairs, we found that disagreement was usually a conflicting value of the same product rather than an independent assertion.
+
+This indicates that directional inclusion is more than just agreement. It also accounts for the extent to which one source’s information is structurally included in another’s.
+
+### Current Thoughts
+
+Directional inclusion asymmetry seems to provide a structural signal that can be helpful in identifying source dependencies.
+
+On the other hand, it does not completely solve the problem.
+
+A perfect copy cannot be distinguished from a hidden common parent source, and very small sources can lead to overinflated asymmetry scores.
+
+The next step is to figure out whether directional inclusion will continue as a stand-alone measure or becomes part of a dependency model.
+
+### What I found
+
+Quite a few top-ranked pairs looked reasonable at first glance.
+
+For instance, there was a large amount of Best Buy's assertions included in Target while the opposite was the case only to a much lesser degree.
+
+
+
 ## Current Research Questions
 
 - How is this best modeled mathematically / what concept fits best?
