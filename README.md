@@ -63,11 +63,11 @@ Medical knowledge:
 - Python
 - PostgreSQL
   
-## Current Status
+# Current Status
 
 Verity is an active research project focused on evaluating source credibility based on the graph structure of an information network.
 
-Feel free to explore the repo contents:
+Check out the repo contents:
 
 - Credibility propagation algorithm + reference implementation
 - Research paper draft with figures
@@ -77,10 +77,12 @@ Feel free to explore the repo contents:
 
 Main area of research currently is [modeling source dependencies](research/source_dependencies.md) to ensure that copied information contributes less evidence than independent agreement.
 
-## AI Integration
+# Vision
 
 Verity explores how credibility inference can become accessible and simplified for AI systems.
 
 Modern AI agents are capable of retrieving vast amounts of information at scale, but still lack a native mechanism for reasoning about the underlying credibility of information. This becomes problematic as these agents become integrated into everyday decision making and act on information on behalf of users.
+
+
 
 The mission is to make the Verity credibility inference engine accessible through an open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server so that AI systems can seamlessly incorporate credibility inference directly into their reasoning process.
