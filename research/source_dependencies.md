@@ -138,7 +138,7 @@ On the other hand, it does not completely solve the problem.
 
 A perfect copy cannot be distinguished from a hidden common parent source, and very small sources can lead to overinflated asymmetry scores.
 
-The next step is to figure out whether directional inclusion will continue as a stand-alone measure or becomes part of a dependency model.
+The next step is to figure out whether directional inclusion will continue as a stand-alone measure or becomes one of multiple signals apart of a broader dependency model.
 
 
 ## Current Research Questions
