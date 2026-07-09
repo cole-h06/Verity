@@ -83,6 +83,13 @@ Verity explores how credibility inference can become accessible and simplified f
 
 Modern AI agents are capable of retrieving vast amounts of information at scale, but still lack a native mechanism for reasoning about the underlying credibility of information. This becomes problematic as these agents become integrated into everyday decision making and act on information on behalf of users.
 
-
-
 The mission is to make the Verity credibility inference engine accessible through an open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server so that AI systems can seamlessly incorporate credibility inference directly into their reasoning process.
+
+# Contact
+
+Feel free to reach out to me with any ideas, questions, feedback, or if you just want to chat about interesting ideas! 
+
+Email: colehoke1@gmail.com
+
+LinkedIn:
+https://www.linkedin.com/in/cole-hoke-8537002a2/
