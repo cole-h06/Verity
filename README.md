@@ -51,12 +51,11 @@ AI coding agents:
 - Python 3.12.0
 - Python v3.12
 
-Medical knowledge:
+Enterprise knowledge:
 
-- Myocardial infarction
-- Heart attack
-- Acute MI
-```
+- Q1_Revenue_Final_v2.pdf
+- ERP_Sales_Export.csv
+- Slack discussion
 
 # Stack
 
