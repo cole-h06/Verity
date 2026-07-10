@@ -30,7 +30,7 @@ Sources and claims form a bipartite graph. Each edge represents a source asserti
 
 Credibility is computed iteratively across the graph. At each iteration step, each source distributes its credibility across all claims it asserts, and each claim in turn redistributes the support it has accumulated back to the asserting sources. The iterations repeat until the credibility vector reaches a fixed point. Agreement weighting influences how much support each assertion contributes.
 
-# Content-Agnostic Core
+# Domain-Agnostic Design
 
 Verity does not interpret a claim's content. The current implementation uses product specifications as a development dataset because they provide large-scale conflicting information from independent sources. In production, clients construct their own credibility graphs from any domain.
 
