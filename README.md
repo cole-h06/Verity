@@ -53,9 +53,9 @@ AI coding agents:
 
 Enterprise knowledge:
 
-- Q1_Revenue_Final_v2.pdf
-- ERP_Sales_Export.csv
-- Slack discussion
+- Q1_Revenue_Final_v2.pdf -> Revenue: $4.2M
+- ERP_Sales_Export_March.csv -> Revenue: $4.2M
+- Slack_Transcript_Internal.txt -> Revenue: $4.2M
 ```
 
 # Stack
