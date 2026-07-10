@@ -56,6 +56,7 @@ Enterprise knowledge:
 - Q1_Revenue_Final_v2.pdf
 - ERP_Sales_Export.csv
 - Slack discussion
+```
 
 # Stack
 
