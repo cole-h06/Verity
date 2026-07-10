@@ -87,7 +87,7 @@ The mission is to make the Verity credibility inference engine accessible throug
 
 # Contact
 
-Feel free to reach out to me with any ideas, questions, feedback, or if you just want to chat about interesting topics! 
+Feel free to shoot me a message whether you have any ideas, questions, feedback, or if you just want to chat about interesting topics! 
 
 Email: colehoke1@gmail.com
 
