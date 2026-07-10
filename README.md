@@ -81,7 +81,9 @@ Main area of research currently is [modeling source dependencies](research/sourc
 
 Verity explores how credibility inference can be made accessible and simplified for AI systems.
 
-Modern AI agents are capable of retrieving vast amounts of information at scale, but still lack a native mechanism for reasoning about the underlying credibility of information. This becomes problematic as these agents become integrated into everyday decision making and act on information on behalf of users.
+Modern AI agents are capable of retrieving vast amounts of information at scale, but still lack a native mechanism for reasoning about the underlying credibility of information. This becomes problematic as these agents become integrated into everyday decision making and act on information on behalf of users. Current methods for evaluating information primarily analyze what was said. While large language models are capable of reasoning about semantic consistency and supporting evidence, their ability to reason about the structure of information itself is limited.
+
+Verity takes a different approach by modeling information as a bipartite graph of source-to-claim assertions. It essentially evaluates the topology of an information network and shifts credibility inference from reasoning about what was said to reasoning about who knows whom.
 
 The mission is to make the Verity credibility inference engine accessible through an open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server so that AI systems can seamlessly incorporate credibility inference directly into their reasoning process.
 
