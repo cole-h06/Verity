@@ -15,4 +15,4 @@ With this benchmark, you can experiment with:
 - `source_claims.csv` - source-specific values
 - `assertions.csv` - edges connecting sources to claims
 
-Product specifications are currently the benchmark being used for development as they provide large amounts of conflicting data published by independent sources. That said, the credibility inference algorithms themselves are not limited by any specific domain and operate only on graph structure.
+Product specifications are currently the benchmark being used for development as they provide large amounts of conflicting data published by independent sources. That said, the inference algorithms themselves are not limited by any specific domain and operate only on graph structure.
