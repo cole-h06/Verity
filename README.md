@@ -36,7 +36,7 @@ Verity does not interpret a claim's content. The current implementation uses pro
 
 Verity operates purely on graph structure. The engine only receives unique identifiers that correspond to sources, claims, and the assertion relationships between them. This means graphs have already been parsed, normalized, deduplicated, canonicalized, and otherwise pre-processed before they are ingested by Verity.
 
-Sopme examples where a client application could merge equivalent assertions for a claim:
+Some examples where a client application could merge equivalent assertions for a claim:
 
 ```text
 Product specifications:
