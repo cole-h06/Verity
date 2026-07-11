@@ -69,7 +69,8 @@ Verity is an active research project focused on evaluating source credibility ba
 
 Check out the repo contents:
 
-- Credibility propagation algorithm + reference implementation
+- Credibility propagation reference implementation
+- Reproducible benchmark dataset
 - Research paper draft with figures
 - Experimental MCP interface
 - Graph structure example
