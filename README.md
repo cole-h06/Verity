@@ -85,7 +85,7 @@ Modern autonomous agents are capable of retrieving vast amounts of information a
 
 Verity takes a different approach by modeling information as a bipartite graph of source-to-claim assertions. It evaluates the topology of an information network and shifts credibility inference from reasoning about what was said to reasoning about who knows whom.
 
-The mission is to make the Verity credibility inference engine accessible through an open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server to allow AI systems to seamlessly incorporate credibility inference directly into their reasoning process.
+The mission is to make the Verity credibility inference engine accessible through an open-source [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that allows AI systems to seamlessly incorporate credibility inference directly into their reasoning process.
 
 # Contact
 
