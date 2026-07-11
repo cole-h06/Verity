@@ -67,7 +67,7 @@ Enterprise knowledge:
 
 Verity is an active research project focused on evaluating source credibility based on the graph structure of an information network.
 
-Check out the repo contents:
+Repository contents currently include:
 
 - Credibility propagation reference implementation
 - Reproducible benchmark dataset
