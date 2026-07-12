@@ -1,6 +1,6 @@
 # Project Verity
 
-A graph-based credibility inference engine for networks of conflicting claims. Verity models sources and claims as a bipartite graph to infer the credibility of every source and claim.
+A graph-based credibility inference engine for information networks. Verity models sources and claims as a bipartite graph to infer the credibility of every source and claim.
 
 # Problem
 
