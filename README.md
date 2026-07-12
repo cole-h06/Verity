@@ -53,9 +53,9 @@ AI coding agents:
 
 Enterprise knowledge:
 
-Financial Report -> Revenue: $4.2M
-ERP Export -> Revenue = 4,200,000 USD
-Slack Discussion -> Quarterly revenue was $4.2 million
+- Financial Report -> Revenue: $4.2M
+- ERP Export -> Revenue = 4,200,000 USD
+- Slack Discussion -> Quarterly revenue was $4.2 million
 ```
 
 # Stack
