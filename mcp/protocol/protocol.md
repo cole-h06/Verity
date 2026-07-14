@@ -13,7 +13,7 @@ This document describes the responsibilities and guarantees required by the inte
 This document uses the following terms:
 
 - Source: The origin making one or more claims.
-- Claim: A structured assertion about some entity.
+- Claim: A structured statement about some entity.
 - Assertion: The link between sources and claims.
 - Credibility Graph: A graph of sources, claims, and assertions.
 - Client: Software that constructs and submits graph updates.
@@ -33,7 +33,7 @@ Equivalent inputs result in equivalent graph structure.
 
 ### Privacy Preserving
 
-Clients canonicalize assertions and convert them into privacy-preserving linkage tokens. The protocol does not require the underlying content in order to perform inference.
+Clients canonicalize assertions and convert them into privacy-preserving linkage tokens. Verity deployments do not require the underlying content in order to perform inference.
 
 ### Persistent
 
