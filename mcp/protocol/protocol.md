@@ -61,7 +61,7 @@ A Verity Deployment MUST:
 - Compute structural credibility
 - Return deterministic credibility signals
 
-A Verity Deployment MUST NOT interpret the semantic meaning of the underlying data.
+A Verity Deployment MUST NOT interpret the underlying content.
 
 ## 5. Protocol Overview
 
