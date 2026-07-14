@@ -1,12 +1,9 @@
 # MCP Interface
 
-Verity exposes an experimental MCP server that enables AI agents to evaluate the credibility of information.
+Verity exposes an experimental MCP server that computes structural credibility within networks of sources and claims.
 
-The server computes credibility scores using Verity's inference engine and returns structured credibility results through the emerging [Model Context Protocol (MCP)](https://modelcontextprotocol.io).
+It stores a persistent credibility graph and returns deterministically derived credibility signals through the emerging [Model Context Protocol (MCP)](https://modelcontextprotocol.io). By analyzing how sources connect to each other through the claims they assert, Verity can reason about the overall structure of the information itself instead of reasoning about the actual underlying content or semantic meaning.
 
-Example tools:
+This allows for the engine to measure provenance, corroboration, conflicting information, and source dependencies without requiring the server to interpret the data itself.
 
-- get_source_credibility()
-- get_claim_support()
-- find_conflicting_claims()
-- trace_claim()
+This implementation is intended to serve as the reference MCP interface for the Verity inference engine and can serve as the basis for self-hosted and cloud deployments.
