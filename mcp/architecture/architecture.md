@@ -28,7 +28,7 @@
 - Cloud-based deployment
 
 ## 7. Trust Boundary
-- Data that crosses boundary.
+- Data crossing the trust boundary.
 - Data that is not exposed to Verity.
 
 ## 8. Persistent Storage Model
@@ -45,9 +45,14 @@
 - Score publication
 
 ## 10. Failure Recovery
+
+- Crash recovery
+- Partial writes
+- Idempotency
+- Graph consistency
+
+## 11. Scalability
+
 - Incremental computation
 - Parallel inference
 - Horizontal scaling
-
-## 11. Scalability
-- Incremental
