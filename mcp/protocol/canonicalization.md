@@ -1,10 +1,10 @@
 # Verity Canonicalization Specification
 
-1. Introduction
+## 1. Introduction
 
 - Purpose of deterministic canonicalization
 
-2. Design Goals
+## 2. Design Goals
 
 - Deterministic
 
@@ -14,23 +14,19 @@
 
 - Language independent
 
-3. Canonicalization Workflow
+## 3. Canonicalization Workflow
 
-- Structured input
-
-- Normalization
-
-- Canonical representation
-
-- Graph construction
-
-4. Source Canonicalization
+- Structured assertions
+- Deterministic normalization
+- Canonical graph representation
+  
+## 4. Source Canonicalization
 
 - Source identifiers
 
 - Normalization rules
 
-5. Claim Canonicalization
+## 5. Claim Canonicalization
 
 - Entity
 
@@ -40,7 +36,7 @@
 
 - Units
 
-6. Assertion Construction
+## 6. Assertion Construction
 
 - Source
 
@@ -48,7 +44,7 @@
 
 - Assertion
 
-7. Canonical Forms
+## 7. Canonical Forms
 
 - Canonical source
 
@@ -56,10 +52,10 @@
 
 - Canonical assertion
 
-8. Versioning
+## 8. Versioning
 
 - Canonicalization specification versions
 
-9. Conformance
+## 9. Conformance
 
 - Requirements for compliant implementations
