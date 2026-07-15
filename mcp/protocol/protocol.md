@@ -57,11 +57,11 @@ The Verity protocol does not support semantic extraction from unstructured data.
 
 A Verity Deployment MUST:
 
-- Store and maintain the credibility graph
-- Resolve linkage tokens
-- Update graph topology
-- Compute structural credibility
-- Return deterministic credibility signals
+- Store and maintain the credibility graph.
+- Resolve linkage tokens.
+- Update graph topology.
+- Compute structural credibility.
+- Return deterministic credibility signals.
 
 A Verity deployment MUST NOT interpret the underlying content.
 
