@@ -15,8 +15,15 @@
 - Persistence Layer
 
 ## 4. End-to-End Workflow
-- All steps involved from retrieval to credibility response.
-
+- Existing pipeline
+- Structured output
+- Verity SDK
+- Canonicalization
+- OPRF
+- Verity deployment
+- Inference engine
+- Credibility response
+  
 ## 5. Graph Workflow
 - Graph construction
 - Graph evolution
