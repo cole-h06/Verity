@@ -4,7 +4,7 @@
 
 The Verity protocol describes the contract between clients and Verity deployments.
 
-Verity computes structural credibility based on graphs built from sources, claims, and assertions, but does not interpret the underlying content. Clients build this graph locally and submit it to the Verity deployment for inference.
+Verity computes structural credibility based on graphs built from sources, claims, and assertions, but does not interpret the underlying content. Clients extract structured assertions from their local data. Then, the graph is constructed and submitted to a Verity deployment for inference.
 
 This document describes the responsibilities and guarantees required by the interoperable implementations of the Verity Protocol.
 
@@ -13,7 +13,7 @@ This document describes the responsibilities and guarantees required by the inte
 This document uses the following terms:
 
 - Source: The origin making one or more claims.
-- Claim: A structured piece of information about some entity.
+- Claim: A structured piece of information about an entity.
 - Assertion: The relationship between a source and a claim.
 - Credibility Graph: A bipartite graph composed of sources, claims, and assertions.
 - Client: Software that constructs and submits graph updates.
@@ -45,11 +45,13 @@ Each Verity deployment stores and maintains a persistent credibility graph that 
 
 The client MUST:
 
-- Extract structured assertions using local data
-- Canonicalize extracted assertions according to the Verity Canonicalization Specification
-- Generate privacy-preserving linkage tokens from the canonicalized assertions
-- Construct graph updates from the linkage tokens
-- Submit graph updates to a Verity deployment
+- Extract structured assertions from local data.
+- Construct graph updates from the extracted assertions.
+- Canonicalize graph updates according to the Verity Canonicalization Specification.
+- Generate privacy-preserving linkage tokens from the canonicalized graph.
+- Submit graph updates to a Verity deployment.
+
+The Verity protocol does not support semantic extraction from unstructured data.
 
 ### Verity Deployment
 
@@ -61,13 +63,15 @@ A Verity Deployment MUST:
 - Compute structural credibility
 - Return deterministic credibility signals
 
-A Verity Deployment MUST NOT interpret the underlying content.
+A Verity deployment MUST NOT interpret the underlying content.
+
+A Verity deployment assumes every structured graph update is compliant with the protocol, so no semantic extraction is performed.
 
 ## 5. Protocol Overview
 
 The protocol is composed of the following stages:
 
-1.  Data Extraction: Client obtains structured assertions from local sources.
+1.  Structured Extraction: Client obtains structured assertions from local sources.
 2.  Canonicalization: Client deterministically canonicalizes extracted assertions.
 3.  Linkage Generation: Client generates privacy-preserving linkage tokens from canonicalized assertions.
 4.  Graph Construction: Client constructs graph update messages using linkage tokens.
