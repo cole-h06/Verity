@@ -59,7 +59,7 @@ The Verity SDK is responsible for converting structured assertions into graph up
 
 ### 4.1 Declarative Mapping
 
-The SDK provides a declarative mapping interface for the purpose of mapping existing structured data into canonical sources, claims, and assertions.
+The SDK provides a declarative mapping interface for mapping existing structured data into canonical sources, claims, and assertions.
 
 Compliant SDK implementations MUST preserve the mappings defined by the client application and MUST NOT require changes to existing application-specific data models.
 
