@@ -323,11 +323,11 @@ docs.anthropic.com -> (messages_api, supports_streaming, true)
 ---
 
 ```text
-Source:
-docs.anthropic.com
+Submitted Graph Update
 
-Claim:
-(messages_api, supports_streaming, true)
+docs.anthropic.com -> (messages_api, supports_streaming, true)
+
+docs.anthropic.com -> (messages_api, supports_streaming, true)
 
 Result:
 Rejected
