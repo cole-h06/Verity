@@ -31,6 +31,8 @@ Client applications integrate the Verity SDK into existing structured data pipel
 
 A Verity deployment stores and maintains a persistent credibility graph as new assertions are submitted to the graph. The deployment then executes structural credibility inference and returns credibility signals to client applications. The credibility graph may be private to a single organization or shared across multiple participants depending on the deployment model used.
 
+
+
 <p align="center">
   <img src="diagrams/system_architecture.png" alt="Verity system architecture" width="600">
 </p>
@@ -38,6 +40,8 @@ A Verity deployment stores and maintains a persistent credibility graph as new a
 <p align="center">
   <em>Figure 1. High-level architecture of the Verity system.</em>
 </p>
+
+
 
 ## 3. Components
 - Host
