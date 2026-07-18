@@ -2,37 +2,26 @@
 
 ## 1. Introduction
 
-- Purpose of deterministic canonicalization
+The Verity Canonicalization Specification defines a set of deterministic rules for sources, claims, and assertions before applications construct a graph. It specifies how data is normalized before being serialized into a canonical representation. This enables applications to exchange canonicalized data without any ambiguity.
 
 ## 2. Design Goals
 
-- Deterministic
+The Verity Canonicalization Specification is designed to produce consistent graph structures across independent implementations. To achieve this, it follows these design goals:
 
-- Domain agnostic
-
-- Versioned
-
-- Language independent
-
-## 3. Canonicalization Workflow
-
-- Structured assertions
-- Deterministic normalization
-- Canonical graph representation
+- **Deterministic** — Semantically equivalent input should always produce an identical representation.
+- **Domain-Agnostic** - The specification operates the same regardless of an application's underlying data.
+- **Language-Independent** — Compliant implementations produce identical results regardless of the programming language used.
+- **Versioned** - The specification can evolve without breaking existing implementations.
   
-## 4. Source Canonicalization
+## 3. Source Canonicalization
 
-- Source identifiers
+### 3.1 Source Identifiers
 
-- Normalization rules
+A source refers to the origin asserting one or more claims.
 
-### 4.1 Source Identifiers
+An application MUST define the source type before invoking the Verity SDK. The SDK MUST NOT infer the source type based on the source identifier provided.
 
-A source refers to the origin of one or more claims.
-
-Clients MUST define the source type prior to invoking the Verity SDK. The SDK MUST NOT infer the source identity based on the source identifier provided.
-
-Types of sources that are supported include:
+Supported source types include:
 
 - `web_publisher`
 - `web_document`
@@ -41,14 +30,15 @@ Types of sources that are supported include:
 - `database`
 - `package`
 
-### 4.2 Normalization Rules
+### 3.2 Normalization Rules
 
 For `web_publisher` sources, the SDK MUST:
 
 - Make the domain name lowercase.
 - Strip a trailing DNS dot from the domain name.
-- Transform internationalized domain names through IDNA.
-- Reject identifiers containing path, query, or fragment information.
+- Transform internationalized domain names using Unicode Technical Standard #46 (UTS #46) Nontransitional Processing      before converting them to their IDNA2008 ASCII representation.
+- Permit an empty path or the root path (/).
+- Reject identifiers containing any other path, query, or fragment information.
 
 For `web_document` sources, the SDK MUST:
 
@@ -58,11 +48,9 @@ For `web_document` sources, the SDK MUST:
 - Keep paths and query parameters intact.
 - Normalize the URI according to RFC 3986.
 
-For all source types, the SDK MUST reject ambiguous identifiers that cannot be deterministically normalized.
+For all source types, the SDK MUST reject identifiers that cannot be deterministically normalized.
 
-### 4.3 Examples
-
-Examples:
+### 3.3 Examples
 
 Input
 
@@ -121,23 +109,23 @@ Rejected
 Reason
 
 ```text
-Source identifier is ambiguous.
+The identifier cannot be deterministically normalized.
 ```
 
-## 5. Claim Canonicalization
+## 4. Claim Canonicalization
 
-### 5.1 Entity
+### 4.1 Entity
 
-An entity refers to the subject of one or more claims.
+An entity represents the subject of one or more claims.
 
 The SDK MUST:
 
 - Accept structured entity identifiers only.
 - Preserve the semantic identity provided by the client.
-- Normalize Unicode.
+- Normalize Unicode strings using Unicode Normalization Form C (NFC).
 - Trim surrounding whitespace.
-- Lowercase the entities when the identifier namespace is case-insensitive.
-- Reject ambiguous entity identifiers.
+- Lowercase the entity only when explicitly specified by the identifier namespace.
+- Reject entity identifiers that cannot be deterministically normalized into a unique canonical representation.
 
 Examples:
 
@@ -167,9 +155,9 @@ Canonical
 payment_service
 ```
 
-### 5.2 Attribute
+### 4.2 Attribute
 
-An attribute refers to a property of an entity.
+An attribute represents the property of an entity.
 
 The SDK MUST:
 
@@ -223,7 +211,7 @@ Canonical
 latency_ms
 ```
 
-### 5.3 Value
+### 4.3 Value
 
 Values are canonicalized based on the underlying data type.
 
@@ -231,7 +219,7 @@ The SDK MUST:
 
 - Normalize boolean values.
 - Normalize numeric representations.
-- Trim surrounding whitespaces for string values.
+- Trim surrounding whitespace for string values.
 - Preserve the semantic meaning of the string value.
 
 Examples:
@@ -276,27 +264,27 @@ Canonical
 4.5
 ```
   
-### 5.4 Units
+### 4.4 Units
 
 Unit normalization is outside the scope of this specification.
 
 Clients are responsible for converting measurements into deterministic units before invoking the Verity SDK.
 
-## 6. Assertion Construction
+## 5. Assertion Construction
 
-### 6.1 Source
+### 5.1 Source
 
 Each assertion MUST reference exactly one canonical source.
 
-The source MUST satisfy the requirements specified in Section 4.
+The source MUST satisfy the requirements specified in Section 3.
 
-### 6.2 Claim
+### 5.2 Claim
 
 Each assertion MUST reference exactly one canonical claim.
 
-The claim MUST satisfy the requirements specified in Section 5.
+The claim MUST satisfy the requirements specified in Section 4.
 
-### 6.3 Assertion
+### 5.3 Assertion
 
 An assertion refers to the relationship between one canonical source and one canonical claim.
 
@@ -352,13 +340,13 @@ Reason:
 Assertions MUST reference canonical sources and canonical claims.
 ```
 
-## 7. Canonical Forms
+## 6. Canonical Forms
 
 Prior to generating linkage tokens, canonical sources, claims, and assertions MUST be serialized into deterministic JSON using the JSON Canonicalization Scheme as described in RFC 8785.
 
 The serialized representation MUST be consistent across compliant implementations.
 
-### 7.1 Canonical Source
+### 6.1 Canonical Source
 
 Canonical source format MUST include:
 
@@ -374,7 +362,7 @@ Example
 }
 ```
 
-### 7.2 Canonical Claim
+### 6.2 Canonical Claim
 
 Canonical claim format MUST include:
 
@@ -392,7 +380,7 @@ Example
 }
 ```
 
-### 7.3 Canonical Assertion
+### 6.3 Canonical Assertion
 
 Canonical assertion format MUST include:
 
@@ -415,10 +403,16 @@ Example
 }
 ```
 
-## 8. Versioning
+## 7. Versioning
 
-- Canonicalization specification versions
+The Verity Canonicalization Specification is versioned. Any modifications that affect canonicalization behavior MUST be introduced through a new specification version.
 
-## 9. Conformance
+Implementations SHOULD expose the version of the specification they implement.
 
-- Requirements for compliant implementations
+## 8. Conformance
+
+The normative keywords MUST, MUST NOT, REQUIRED, SHOULD, SHOULD NOT, RECOMMENDED, MAY, and OPTIONAL in this specification are to be interpreted as defined in RFC 2119 and RFC 8174.
+
+An implementation is in compliance with this specification if it satisfies all normative requirements defined in this document.
+
+Implementations MAY provide additional functionality, provided it does not alter the canonical representation produced by this specification.
