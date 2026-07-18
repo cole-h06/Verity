@@ -7,7 +7,3 @@ It stores a persistent credibility graph and returns deterministically derived c
 This allows the engine to measure provenance, corroboration, conflicting information, and source dependencies without requiring the server to interpret the data itself.
 
 This implementation is intended to serve as the reference MCP interface for the Verity inference engine and serves as the basis for self-hosted and cloud deployments.
-
-<p align="center">
-  <img src="diagrams/architecture.png" alt="Verity system architecture" width="600">
-</p>
