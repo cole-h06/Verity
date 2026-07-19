@@ -144,6 +144,35 @@ A perfect copy cannot be distinguished from a hidden common parent source, and v
 
 The next step is to figure out whether directional inclusion will continue as a stand-alone measure or becomes one of multiple signals apart of a broader dependency model.
 
+## Toward a Structural Dependency Model
+
+Directional inclusion asymmetry demonstrated that, as seen in Experiment 1, useful structural information can be derived. But, it is not sufficient enough to fully characterize source dependencies.
+
+Instead of using a single metric, I'm looking into modeling it as a hybrid function over multiple graph-derived signals which I believe is a better way it can be formally defined.
+
+Let:
+
+D(A, B)
+
+be the structural dependency between sources A and B.
+
+We define:
+
+$$
+D(A, B) = f(X_1, X_2, \ldots, X_n)
+$$
+
+where each $X_i$ refers to a distinct structural property of the relationship between two sources.
+
+Some potential signals could include:
+
+- directional inclusion asymmetry
+- rarity of shared assertions
+- structural similarity
+- community overlap
+- additional graph-derived dependency measures
+
+The exact nature of f will have to be determined empirically by future experiments.
 
 ## Open Questions
 
