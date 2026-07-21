@@ -212,34 +212,25 @@ Conflicting assertions:    34
 Average rarity:           0.421633
 ```
 
-We computed directional inclusion as:
+We compute directional inclusion as:
 
 $$
-\max\left(
-\frac{198}{314},
-\frac{198}{792}
-\right)
-=
-0.630573
+\max\left(\frac{198}{314}, \frac{198}{792}\right) = 0.630573
 $$
 
-We then computed the redundancy score as:
+We then compute the redundancy score as:
 
 $$
-0.630573 \times 0.421633
-=
-0.265870
+0.630573 \times 0.421633 = 0.265870
 $$
 
-Finally, we computed the structural independence score as:
+Finally, we compute the structural independence score as:
 
 $$
-1 - 0.265870
-=
-0.734130
+1 - 0.265870 = 0.734130
 $$
 
-The manually computed values matched the implementation output to numerical precision. The inspection tool also independently counted the same 198 matching assertions and 34 conflicting assertions as the production implementation.
+The manually computed values matched the implementation output to precisely. The inspection tool also independently counted the same 198 matching assertions and 34 conflicting assertions as the production implementation.
 
 ## Community Overlap (Experiment 3)
 
