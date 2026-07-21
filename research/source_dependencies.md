@@ -196,6 +196,51 @@ This experiment does not mean rarity-weighted overlap is a measure of source dep
 
 Rarity-weighted overlap seems to be a promising candidate as part of the broader hybrid dependency model introduced earlier. Nonetheless, whether it holds up alongside other structural signals or not is an empirical question for further experiments.
 
+## Manual Implementation Validation
+
+I manually reproduced the depednency score for one source pair, Best Buy and Target, in order to determine if the implementation matched the mathematical definition.
+
+The implementation reported:
+
+```text
+Assertions from Best Buy: 792
+Assertions from Target:   314
+
+Matching assertions:      198
+Conflicting assertions:    34
+
+Average rarity:           0.421633
+```
+
+We computed directional inclusion as:
+
+$$
+\max\left(
+\frac{198}{314},
+\frac{198}{792}
+\right)
+=
+0.630573
+$$
+
+We then computed the redundancy score as:
+
+$$
+0.630573 \times 0.421633
+=
+0.265870
+$$
+
+Finally, we computed the structural independence score as:
+
+$$
+1 - 0.265870
+=
+0.734130
+$$
+
+The manually computed values matched the implementation output to numerical precision. The inspection tool also independently counted the same 198 matching assertions and 34 conflicting assertions as the production implementation.
+
 ## Community Overlap (Experiment 3)
 
 The first two experiments centered on measuring each pair of source's structural relationship.
